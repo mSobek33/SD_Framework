@@ -18,7 +18,7 @@ class SystemVariable:
         :param type: Enumeration for the specific SystemVariable type
         :return: returns nothing
         """
-        self.Name = name
-        self.Unit = unit
-        self.InitialValue = initialValue
-        self.Type = type
+        self.name = name
+        self.unit = unit
+        self.initialValue = initialValue
+        self.type = type
