@@ -8,9 +8,9 @@ if __package__ is None:
     import sys
     from os import path
     sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
-    from systemInput import SystemVariable, Type
+    from src.systemInput import SystemVariable, Type
 else:
-    from systemInput import SystemVariable, Type
+    from src.systemInput import SystemVariable, Type
 
 test = SystemVariable.SystemVariable('Beute', 'Hase/Hasen', 500, Type.Type.constant)
 print(test.name)

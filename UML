@@ -1,0 +1,24 @@
+
+
+                            Model
+                _____________|
+                |
+           Systemgröße---------------------------Zu/Abfluss
+           (SystemVariable)                             |
+                |                                       |
+                |                                   Funktion
+                |
+          Vorgabengröße
+          Zustandsgröße
+          Zwischengröße
+
+
+zu klären:
+- Wie Gleichungen speichern? Parsen?
+- Unittests?
+- Systemgrößen erben oder als Typ?
+- Verbindung Node und Edge > sollen Zu/Abfluss in Systemgrößen gespeichert werden oder nicht?
+
+
+LINKS:
+ PLOTTEN http://icancode.de/2150/numerische-approx-einer-differentialgleichung-plotten
