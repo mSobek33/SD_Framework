@@ -16,8 +16,10 @@
 zu klären:
 - Wie Gleichungen speichern? Parsen?
 - Unittests?
-- Systemgrößen erben oder als Typ?
-- Verbindung Node und Edge > sollen Zu/Abfluss in Systemgrößen gespeichert werden oder nicht?
+- Systemgrößen erben oder als Typ? (Als Typ, ich würde mich hier an VEnsim orientieren: Variablen erzeugen und Typ festlegen) 
+- Verbindung Node und Edge > sollen Zu/Abfluss in Systemgrößen gespeichert werden oder nicht? (Wir sollten alles 
+  im Model zusammenführen; Allerdings sollen die Systemgrößen wissen welche Zu/Abflüsse und auch welche Wirkbeziehungen mit ihnen
+  verknüpft sind)
 
 
 LINKS:
