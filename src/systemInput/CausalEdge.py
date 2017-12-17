@@ -18,4 +18,8 @@ class CausalEdge:
         """
         self.StartVariable = startVariable
         self.EndVariable = endVariable
+        # Influence noch notwendig?
         self.Influence = influence
+        
+        startVariable.addCausalEdge(self)
+        endVariable.addCausalEdge(self)

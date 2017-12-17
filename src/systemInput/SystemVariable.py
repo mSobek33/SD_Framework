@@ -24,6 +24,7 @@ class SystemVariable:
         self.type = type
         self.inputFlow = list()
         self.outputFlow = list()
+        self.causalEdgeList = list()
 
 
 
@@ -42,7 +43,7 @@ class SystemVariable:
             :param outputflow: 
             :return: 
             """
-            self.input.append(inputflow)
+            self.inputFlow.append(inputflow)
 
 
 
@@ -52,3 +53,11 @@ class SystemVariable:
         :return: 
         """
         pass
+    
+    def addCausalEdge(self, causalEdge):
+        """
+        Add new causal edge in list
+        :param causalEdge: 
+        :return: 
+        """
+        self.causalEdgeList.append(causalEdge)
