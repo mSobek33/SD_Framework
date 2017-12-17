@@ -20,7 +20,7 @@ zu klären:
 - Verbindung Node und Edge > sollen Zu/Abfluss in Systemgrößen gespeichert werden oder nicht? (Wir sollten alles 
   im Model zusammenführen; Allerdings sollen die Systemgrößen wissen welche Zu/Abflüsse und auch welche Wirkbeziehungen mit ihnen
   verknüpft sind)
-
+- CausalEdges zwischen 2 Variablen sollten über das Model erzeugt werden (Implementierung vorhanden)
 
 LINKS:
  PLOTTEN http://icancode.de/2150/numerische-approx-einer-differentialgleichung-plotten
