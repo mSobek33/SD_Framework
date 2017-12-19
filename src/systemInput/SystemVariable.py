@@ -17,6 +17,7 @@ class SystemVariable:
         :param type: Enumeration for the specific SystemVariable type
         :return: returns nothing
         """
+
         self.name = name
         self.unit = unit
         self.initialValue = initialValue
@@ -53,7 +54,9 @@ class SystemVariable:
         :return: 
         """
         pass
-    
+
+
+
     def addCausalEdge(self, causalEdge):
         """
         Add new causal edge in list

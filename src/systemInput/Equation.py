@@ -1,4 +1,6 @@
 import pydoc
+import re
+
 
 class Equation:
     """
@@ -6,19 +8,37 @@ class Equation:
     """
     pass
 
-    def __init__(self, defintion):
+    def __init__(self, name, *args):
         """
         Construct a new Flow-'Evaluation'
-        :param defintion: formular 
+        :param name: set name of function
+        :param args: a list (various) of SystemVariables
         """
-        self.defintion = defintion
+        self.name = name
+        self.listVariable = dict()
+        for i in args:
+            self.listVariable[i.name] = i
 
 
-    def calculateValue(self):
+    def defineFunction(self, functionalEquation):
         """
-        calculate current Value, Current Values must be set before
+        Define Function
         :return: current result
         """
-        #toDo
-        #eval soll die zu dieser Zeit definierten Variablen aus den Klassen lesen
-        return eval(self.defintion)
+        # eval soll die zu dieser Zeit definierten Variablen aus den Klassen lesen
+        self.functionalEquation = functionalEquation
+
+
+    def calculateCurrentValue(self):
+        """
+        Calculate the current Value
+        :return: 
+        """
+        splittedEquation = re.split("([*,+,/,-])", self.functionalEquation.replace(" ", ""))
+        counter = 0
+        for i in splittedEquation:
+            if i in self.listVariable:
+                help = self.listVariable[i]
+                splittedEquation[counter] = str(help.currentValue)
+            counter += 1
+        return eval("".join(splittedEquation))

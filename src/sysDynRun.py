@@ -8,7 +8,7 @@ if __package__ is None:
     import sys
     from os import path
     sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
-    from src.systemInput import SystemVariable, Type, Model
+    from src.systemInput import SystemVariable, Type, Model, Flow
 else:
     from src.systemInput import SystemVariable, Type, Model
 
@@ -31,6 +31,11 @@ mainModel.defineCausalEdge(testVar1, testVar2, "positive")
 # get the names of the variables from the first CausalEdge item
 print(testVar1.causalEdgeList[0].StartVariable.name)
 print(testVar1.causalEdgeList[0].EndVariable.name)
+
+# define Flow
+f1 = Flow.Flow('Wachstum', 'Beute.currentValue * 0.02')
+f2 = Flow.Flow('Sterben', '2*b')
+
 
 
 
