@@ -11,7 +11,7 @@ else:
 
 class Model:
 
-    def __init__(self, name, starttime, endtime, timesteps):
+    def __init__(self, name, starttime, endtime, timestep):
         """
         Construct a new 'Model' object.
 
@@ -26,7 +26,7 @@ class Model:
         self.listSystemVariable = list()
         self.starttime = starttime
         self.endtime = endtime
-        self.timesteps = timesteps
+        self.timestep = timestep
 
 
     def addSystemVariable(self, systemVariable):
@@ -65,7 +65,7 @@ class Model:
                 print("The variable '" + endVariable.name + "' does not exist in the current model!")
                 return
         causalEdge = CausalEdge.CausalEdge(startVariable, endVariable, influence)
-        
+
     def run(self):
         """
         run whole model

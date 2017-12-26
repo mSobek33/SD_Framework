@@ -2,6 +2,7 @@
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
 import pydoc
+from src.systemInput import Type
 
 class SystemVariable:
     
@@ -22,6 +23,7 @@ class SystemVariable:
         self.unit = unit
         self.initialValue = initialValue
         self.currentValue = initialValue
+        self.newValue= initialValue
         self.type = type
         self.inputFlow = list()
         self.outputFlow = list()
@@ -48,15 +50,6 @@ class SystemVariable:
 
 
 
-    def calculateCurrentValue(self):
-        """
-        Aktuellen Wert aus Flüssen berechnen
-        :return: 
-        """
-        pass
-
-
-
     def addCausalEdge(self, causalEdge):
         """
         Add new causal edge in list
@@ -64,3 +57,26 @@ class SystemVariable:
         :return: 
         """
         self.causalEdgeList.append(causalEdge)
+
+
+
+    def addEquation(self, equatition):
+        """
+        set equation, just if the SystemVariable is no level
+        :param equatition: define function
+        :return: 
+        """
+        if self.type != Type.Type.level:
+            self.equation = equatition
+
+
+
+    def calculateNewValue(self):
+        """
+        Aktuellen Wert aus Flüssen berechnen
+        :return: 
+        """
+        if hasattr(self, 'equation'):
+            self.newValue = self.equation.calculateNewValue()
+        else:
+            raise Exception("EQUATION MUST BE DEFINED: "+self.name)

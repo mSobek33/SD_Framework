@@ -29,9 +29,9 @@ class Equation:
         self.functionalEquation = functionalEquation
 
 
-    def calculateCurrentValue(self):
+    def calculateNewValue(self):
         """
-        Calculate the current Value
+        Calculate the new value
         :return: 
         """
         splittedEquation = re.split("([*,+,/,-])", self.functionalEquation.replace(" ", ""))
@@ -40,5 +40,22 @@ class Equation:
             if i in self.listVariable:
                 help = self.listVariable[i]
                 splittedEquation[counter] = str(help.currentValue)
+            elif (i == "+" or  i == "-" or i == "/" or i == "*"):
+                pass
+            elif self.__is_float(i)==False:
+                raise Exception("ATTRIBUTE " + i + " DOES NOT EXIST")
             counter += 1
         return eval("".join(splittedEquation))
+
+
+    def __is_float(self, input):
+        """
+        check if a string is a float
+        source: https://edumaven.com/python-programming/is-number
+        :return: boolean
+        """
+        try:
+            num = float(input)
+        except ValueError:
+            return False
+        return True

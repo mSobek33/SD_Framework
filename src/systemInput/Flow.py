@@ -1,8 +1,3 @@
-import pydoc
-
-from src.systemInput.Equation import Equation
-
-
 class Flow:
 
     def __init__(self, name):
@@ -13,12 +8,9 @@ class Flow:
         """
         self.name = name
 
-
-
     def addEquation(self, equatition):
         """
-        calculate current Value for the given Equation
+        set Equation
         :return: current Value 
         """
-        #Testen ob equation von der Richtigen Klassen
         self.equation = equatition
