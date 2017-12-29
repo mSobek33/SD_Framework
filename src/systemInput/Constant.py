@@ -1,6 +1,6 @@
 import pydoc
 
-from src.systemInput.SystemVariable import SystemVariable
+from src.systemInput.SystemVariable import SystemVariable, Type
 
 """
 Wir sollten LEVEL, AUXILIARY and CONSTANT als Kindklassen von SystemVariable definieren.
@@ -12,4 +12,11 @@ Wenn wir das so belassen wie jetzt, müssten wir alles mit Typabfragen abfangen 
 """
 
 class Constant(SystemVariable):
-    pass
+    
+    def __init__(self, name, unit):
+        self.name = name
+        self.unit = unit
+        #self.currentValue = initialValue
+        #self.newValue= initialValue
+        self.type = Type.Type.constant
+        self.causalEdgeList = list()

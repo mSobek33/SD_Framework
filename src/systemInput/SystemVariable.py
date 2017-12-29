@@ -8,7 +8,7 @@ class SystemVariable:
     
     pass
     
-    def __init__(self, name, unit, initialValue, type):
+    def __init__(self, name, unit):
         """
         Construct a new 'SystemVariable' object.
 
@@ -18,37 +18,14 @@ class SystemVariable:
         :param type: Enumeration for the specific SystemVariable type
         :return: returns nothing
         """
-
         self.name = name
         self.unit = unit
-        self.initialValue = initialValue
-        self.currentValue = initialValue
-        self.newValue= initialValue
-        self.type = type
-        self.inputFlow = list()
-        self.outputFlow = list()
+        #self.currentValue = currentValue
+        #self.newValue= newValue
+        #self.type = type
+        #self.inputFlow = list()
+        #self.outputFlow = list()
         self.causalEdgeList = list()
-
-
-
-    def addOutputFlow(self, outputflow):
-        """
-        Add new output Flow in list
-        :param outputflow: 
-        """
-        self.outputFlow.append(outputflow)
-
-
-
-    def addInputFlow(self, inputflow):
-            """
-            Add new input Flow in list
-            :param outputflow: 
-            :return: 
-            """
-            self.inputFlow.append(inputflow)
-
-
 
     def addCausalEdge(self, causalEdge):
         """
@@ -57,17 +34,29 @@ class SystemVariable:
         :return: 
         """
         self.causalEdgeList.append(causalEdge)
-
-
-
-    def addEquation(self, equatition):
+        
+    
+    def getCauses(self):
+        """
+        Get all variables that affect the current value of this variable
+        
+        :return: all variables that affect the current value of this variable
+        """
+        self.causesList = list()
+        for i in self.causalEdgeList:
+            if(i.endVariable.name != self.name):
+                self.causesList.append(i.endVariable)
+        return self.causesList
+        
+        
+    def addEquation(self, equation):
         """
         set equation, just if the SystemVariable is no level
         :param equatition: define function
         :return: 
         """
-        if self.type != Type.Type.level:
-            self.equation = equatition
+        
+        self.equation = equation
 
 
 

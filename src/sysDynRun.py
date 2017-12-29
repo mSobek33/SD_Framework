@@ -2,25 +2,28 @@
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
 
-from src.integration.Equation import Equation
 
 if __package__ is None:
     import sys
     from os import path
     sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
-    from src.systemInput import SystemVariable, Type, Model
+    from src.systemInput import SystemVariable, Type, Model, Level, Constant, Auxiliary
+    from src.integration.Equation import Equation
 else:
-    from src.systemInput import SystemVariable, Type, Model
+    from src.systemInput import SystemVariable, Type, Model, Level, Constat, Auxiliary
+    from src.integration.Equation import Equation
 
-testVar1 = SystemVariable.SystemVariable('Beute', 'Hase/Hasen', 500, Type.Type.constant)
-testVar2 = SystemVariable.SystemVariable('Raeuber', 'Luchs/Luchse', 500, Type.Type.constant)
-testVar3 = SystemVariable.SystemVariable('Beute', 'Hase/Hasen', 500, Type.Type.constant)
-testVar4 = SystemVariable.SystemVariable('Treffen', 'Hase/Hasen', 500, Type.Type.constant)
+testVar1 = Level.Level('Beute', 'Hase/Hasen', 500)
+testVar2 = Level.Level('Raeuber', 'Luchs/Luchse', 500)
+testVar3 = Level.Level('Beute', 'Hase/Hasen', 500)
+testVar4 = Auxiliary.Auxiliary('Treffen', 'Hase/Hasen')
 
-print(testVar2.name)
-print(testVar2.unit)
-print(testVar2.initialValue)
-print(testVar2.type)
+testLevel = Level.Level('Beute', 'Hase/Hasen', 500)
+
+#print(testLevel.name)
+#print(testLevel.unit)
+#print(testLevel.initialValue)
+print(testLevel.type)
 
 mainModel = Model.Model("Model", 1, 500, 10)
 
@@ -32,8 +35,11 @@ mainModel.addSystemVariable(testVar4)
 mainModel.defineCausalEdge(testVar1, testVar2, "positive")
 
 # get the names of the variables from the first CausalEdge item
-print(testVar1.causalEdgeList[0].StartVariable.name)
-print(testVar1.causalEdgeList[0].EndVariable.name)
+print(testVar1.causalEdgeList[0].startVariable.name)
+print(testVar1.causalEdgeList[0].endVariable.name)
+
+testVar1.getCauses()
+
 
 e = Equation("Beutewachstum", testVar1, testVar2)
 

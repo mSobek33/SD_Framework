@@ -16,10 +16,10 @@ class CausalEdge:
         :param influence: positive or negative influence
         :return: returns nothing
         """
-        self.StartVariable = startVariable
-        self.EndVariable = endVariable
+        self.startVariable = startVariable
+        self.endVariable = endVariable
         # Influence noch notwendig?
-        self.Influence = influence
+        self.influence = influence
         
         startVariable.addCausalEdge(self)
         endVariable.addCausalEdge(self)
