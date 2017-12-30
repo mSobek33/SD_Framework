@@ -26,6 +26,7 @@ class SystemVariable:
         #self.inputFlow = list()
         #self.outputFlow = list()
         self.causalEdgeList = list()
+        self.model = ""
 
     def addCausalEdge(self, causalEdge):
         """

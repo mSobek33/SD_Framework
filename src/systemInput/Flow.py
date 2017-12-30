@@ -7,10 +7,11 @@ class Flow:
         :param equation: formula for calculation
         """
         self.name = name
+        self.currentValue = 0
 
-    def addEquation(self, equatition):
+    def addEquation(self, equation):
         """
         set Equation
         :return: current Value 
         """
-        self.equation = equatition
+        self.equation = equation

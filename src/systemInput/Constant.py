@@ -20,3 +20,4 @@ class Constant(SystemVariable):
         #self.newValue= initialValue
         self.type = Type.Type.constant
         self.causalEdgeList = list()
+        self.model = ""

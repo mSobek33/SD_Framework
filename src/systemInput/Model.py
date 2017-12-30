@@ -40,9 +40,11 @@ class Model:
                 print("The variable '" + systemVariable.name + "' already exists!")
                 return          
         #EXCEPTION HANDLING? > Abfrage ob Typ passend
+        systemVariable.model = self
+        print(systemVariable.model.modelname)
         self.listSystemVariable.append(systemVariable)
 
-    def defineCausalEdge(self, startVariable, endVariable, influence):
+    def defineCausalEdge(self, startVariable, endVariable):
         """
         Add a new CausalEdge between two SystemVariables in the current model
         :param startVariable: the start variable
@@ -50,21 +52,7 @@ class Model:
         :param influence: the influence to the values
         :return: returns nothing
         """
-        for i in self.listSystemVariable:
-            if(i.name == startVariable.name):
-                print("The variable '" + startVariable.name + "' already exists!")
-                break
-            else:
-                print("The variable '" + startVariable.name + "' does not exist in the current model!")
-                return
-            
-            if(i.name == endVariable.name):
-                print("The variable '" + endVariable.name + "' already exists!")
-                break
-            else:
-                print("The variable '" + endVariable.name + "' does not exist in the current model!")
-                return
-        causalEdge = CausalEdge.CausalEdge(startVariable, endVariable, influence)
+        causalEdge = CausalEdge.CausalEdge(startVariable, endVariable)
 
     def run(self):
         """

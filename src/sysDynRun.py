@@ -10,7 +10,7 @@ if __package__ is None:
     from src.systemInput import SystemVariable, Type, Model, Level, Constant, Auxiliary
     from src.integration.Equation import Equation
 else:
-    from src.systemInput import SystemVariable, Type, Model, Level, Constat, Auxiliary
+    from src.systemInput import SystemVariable, Type, Model, Level, Constant, Auxiliary
     from src.integration.Equation import Equation
 
 testVar1 = Level.Level('Beute', 'Hase/Hasen', 500)
@@ -32,12 +32,12 @@ mainModel.addSystemVariable(testVar2)
 mainModel.addSystemVariable(testVar3)
 mainModel.addSystemVariable(testVar4)
 
-mainModel.defineCausalEdge(testVar1, testVar2, "positive")
+
+mainModel.defineCausalEdge(testVar1, testVar2)
 
 # get the names of the variables from the first CausalEdge item
 print(testVar1.causalEdgeList[0].startVariable.name)
 print(testVar1.causalEdgeList[0].endVariable.name)
-
 testVar1.getCauses()
 
 

@@ -22,9 +22,11 @@ class Level(SystemVariable):
         self.currentValue = initialValue
         self.newValue= initialValue
         self.type = Type.Type.level
+        # muss das eine Liste sein?
         self.inputFlow = list()
         self.outputFlow = list()
         self.causalEdgeList = list()
+        self.model = ""
         
         
     def addOutputFlow(self, outputflow):
@@ -35,11 +37,10 @@ class Level(SystemVariable):
         self.outputFlow.append(outputflow)
 
 
-
     def addInputFlow(self, inputflow):
-            """
-            Add new input Flow in list
-            :param outputflow: 
-            :return: 
-            """
-            self.inputFlow.append(inputflow)
+        """
+        Add new input Flow in list
+        :param outputflow: 
+        :return: 
+        """
+        self.inputFlow.append(inputflow)

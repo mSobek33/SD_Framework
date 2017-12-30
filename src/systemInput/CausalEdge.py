@@ -7,7 +7,7 @@ import pydoc
 class CausalEdge:
     pass
     
-    def __init__(self, startVariable, endVariable, influence):
+    def __init__(self, startVariable, endVariable):
         """
         Construct a new 'CasualEdge' object.
 
@@ -19,7 +19,9 @@ class CausalEdge:
         self.startVariable = startVariable
         self.endVariable = endVariable
         # Influence noch notwendig?
-        self.influence = influence
         
-        startVariable.addCausalEdge(self)
-        endVariable.addCausalEdge(self)
+        if(startVariable.model == endVariable.model):
+            startVariable.addCausalEdge(self)
+            endVariable.addCausalEdge(self)
+        else:
+            raise ValueError("Both variables must be in the same model.")

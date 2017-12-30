@@ -32,3 +32,4 @@ class Auxiliary(SystemVariable):
         #self.outputFlow = list()
         self.causalEdgeList = list()
         self.newValue = ""
+        self.model = ""
