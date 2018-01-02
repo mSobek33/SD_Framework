@@ -70,3 +70,5 @@ class SystemVariable:
             self.newValue = self.equation.calculateNewValue()
         else:
             raise Exception("EQUATION MUST BE DEFINED: "+self.name)
+        
+        

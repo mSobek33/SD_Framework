@@ -2,16 +2,16 @@ import pydoc
 
 class EulerCauchyIntegration:
 
-    def integrate(self, model, levels):
+    def integrate(self, timestep, level):
         """
         calculate new state
         See Bossel Page 131
         :param levels: levels of the model
         :return: 
         """
-        for levelEnity in levels:
-            #newValue = levelEnity.currentValue + levelEnity.ZUSTANDSRATE * model.timestep
-            pass
+        
+        level.newValue = level.currentValue + level.calculateNewValue() * timestep
+            
 
 
 

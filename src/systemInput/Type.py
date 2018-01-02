@@ -5,6 +5,9 @@
 from enum import Enum
 
 class Type(Enum):
-    constant = 1
-    level = 2
-    auxiliary = 3
+    auxiliary = 1
+    flow = 2
+    constant = 3
+    level = 4
+    
+    

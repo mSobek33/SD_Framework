@@ -4,9 +4,11 @@ if __package__ is None:
     import sys
     from os import path
     sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
-    from src.systemInput import CausalEdge
+    from src.systemInput import CausalEdge, Type
+    from src.integration import EulerCauchyIntegration
 else:
-    from src.systemInput import CausalEdge
+    from src.systemInput import CausalEdge, Type
+    from src.integration import EulerCauchyIntegration
 
 
 class Model:
@@ -58,4 +60,34 @@ class Model:
         """
         run whole model
         """
-        pass
+        self.timeboundary =  (self.endtime - self.starttime)/self.timestep
+        
+        i = 0
+        
+        # Liste nach Typen ordnen (Flows müssen zuerst berechnet werden!
+        self.listSystemVariable.sort(key=lambda x: x.type.value, reverse=False)
+        
+        while i<self.timestep:
+            
+            for i2 in self.listSystemVariable:
+                if i2.type == Type.Type.level:
+                    eci = EulerCauchyIntegration.EulerCauchyIntegration()
+                    eci.integrate(self.timestep, i2)
+                    i2.valueHistoryList.append(i2.newValue)
+                    # TODO
+                elif i2.type == Type.Type.flow:
+                    i2.calculateNewValue()
+                    i2.valueHistoryList.append(i2.newValue)
+                elif i2.type == Type.Type.auxiliary:
+                    i2.calculateNewValue()
+                    i2.valueHistoryList.append(i2.newValue)
+                    
+            for i3 in self.listSystemVariable:
+                if i3.type != Type.Type.constant:
+                    i3.currentValue = i3.newValue
+    
+            i +=1
+        
+        for i4 in self.listSystemVariable:
+            if i4.type != Type.Type.constant:
+                print(i4.valueHistoryList)

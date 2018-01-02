@@ -22,11 +22,11 @@ class Level(SystemVariable):
         self.currentValue = initialValue
         self.newValue= initialValue
         self.type = Type.Type.level
-        # muss das eine Liste sein?
-        self.inputFlow = list()
-        self.outputFlow = list()
         self.causalEdgeList = list()
         self.model = ""
+        self.valueHistoryList = list()
+        # TODO
+        self.valueHistoryList.append(initialValue)
         
         
     def addOutputFlow(self, outputflow):
@@ -34,7 +34,7 @@ class Level(SystemVariable):
         Add new output Flow in list
         :param outputflow: 
         """
-        self.outputFlow.append(outputflow)
+        self.outputFlow = outputflow
 
 
     def addInputFlow(self, inputflow):
@@ -43,4 +43,16 @@ class Level(SystemVariable):
         :param outputflow: 
         :return: 
         """
-        self.inputFlow.append(inputflow)
+        self.inputFlow = inputflow
+        
+        
+    def calculateNewValue(self):
+        """
+        Aktuellen Wert aus Flüssen berechnen
+        :return: 
+        """
+        if hasattr(self, 'equation'):
+            return self.equation.calculateNewValue()
+        else:
+            raise Exception("EQUATION MUST BE DEFINED: "+self.name)
+        
