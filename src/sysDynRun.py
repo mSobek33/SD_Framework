@@ -25,7 +25,7 @@ testOutputFlow = Flow.Flow('Verlust', 'Hasen/Woche')
 #print(testLevel.initialValue)
 #print(testLevel.type)
 
-mainModel = Model.Model("Model", 0, 500, 1)
+mainModel = Model.Model("Model", 0, 10, 1)
 
 mainModel.addSystemVariable(testBeute)
 mainModel.addSystemVariable(testInputFlow)

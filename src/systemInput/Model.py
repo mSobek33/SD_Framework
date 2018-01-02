@@ -67,7 +67,7 @@ class Model:
         # Liste nach Typen ordnen (Flows müssen zuerst berechnet werden!
         self.listSystemVariable.sort(key=lambda x: x.type.value, reverse=False)
         
-        while i<self.timestep:
+        while i<self.timeboundary:
             
             for i2 in self.listSystemVariable:
                 if i2.type == Type.Type.level:
@@ -78,12 +78,14 @@ class Model:
                 elif i2.type == Type.Type.flow:
                     i2.calculateNewValue()
                     i2.valueHistoryList.append(i2.newValue)
+                    i2.currentValue = i2.newValue
                 elif i2.type == Type.Type.auxiliary:
                     i2.calculateNewValue()
                     i2.valueHistoryList.append(i2.newValue)
+                    i2.currentValue = i2.newValue
                     
             for i3 in self.listSystemVariable:
-                if i3.type != Type.Type.constant:
+                if i3.type == Type.Type.level:
                     i3.currentValue = i3.newValue
     
             i +=1
