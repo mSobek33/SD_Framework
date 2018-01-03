@@ -22,11 +22,13 @@ class Equation:
 
     def defineFunction(self, functionalEquation):
         """
-        Define Function
+        save defined function
         :return: current result
         """
-        # eval soll die zu dieser Zeit definierten Variablen aus den Klassen lesen
-        self.functionalEquation = functionalEquation
+        if "]" and "[" not in functionalEquation:
+            self.functionalEquation = functionalEquation
+        else:
+            raise SyntaxError("USE () INSTEAD OF []")
 
 
     def calculateNewValue(self):
