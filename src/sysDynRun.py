@@ -47,7 +47,7 @@ inputEquation = Equation("Beutewachstum", testBeute)
 inputEquation.defineFunction("0.05 * Beute")
 
 outputEquation = Equation("Beuteverlust", testBeute)
-outputEquation.defineFunction("0.001 * Beute")
+outputEquation.defineFunction("(0.001/1) * Beute")
 
 testInputFlow.addEquation(inputEquation)
 testOutputFlow.addEquation(outputEquation)

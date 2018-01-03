@@ -34,13 +34,16 @@ class Equation:
         Calculate the new value
         :return: 
         """
-        splittedEquation = re.split("([*,+,/,-])", self.functionalEquation.replace(" ", ""))
+
+        list = ["+", "-", "*", "/", "(", ")"]
+
+        splittedEquation = re.split("([-,*,+,/,(,),])", self.functionalEquation.replace(" ", ""))
         counter = 0
         for i in splittedEquation:
             if i in self.listVariable:
                 help = self.listVariable[i]
                 splittedEquation[counter] = str(help.currentValue)
-            elif (i == "+" or  i == "-" or i == "/" or i == "*"):
+            elif any(i in item for item in list):
                 pass
             elif self.__is_float(i)==False:
                 raise Exception("ATTRIBUTE " + i + " DOES NOT EXIST")
