@@ -13,10 +13,10 @@ Wenn wir das so belassen wie jetzt, müssten wir alles mit Typabfragen abfangen 
 
 class Constant(SystemVariable):
     
-    def __init__(self, name, unit):
+    def __init__(self, name, unit, initalValue):
         self.name = name
         self.unit = unit
-        #self.currentValue = initialValue
+        self.currentValue = initalValue
         #self.newValue= initialValue
         self.type = Type.Type.constant
         self.causalEdgeList = list()

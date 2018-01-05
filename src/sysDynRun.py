@@ -13,9 +13,21 @@ else:
     from src.systemInput import SystemVariable, Type, Model, Level, Constant, Auxiliary, Flow
     from src.integration.Equation import Equation
 
-testBeute = Level.Level('Beute', 'Hase/Hasen', 500)
-testInputFlow = Flow.Flow('Zuwachs', 'Hasen/Woche')
-testOutputFlow = Flow.Flow('Verlust', 'Hasen/Woche')
+
+weidekapazitaet = Constant.Constant('Weidekapazitaet', 'Beute', 300)
+wachstumsrateBeute = Constant.Constant('WachstumsrateBeute', '1/Woche', 0.05)
+beutezuwachs = Flow.Flow('Beutezuwachs', 'Beute/Woche')
+beute = Level.Level('Beute', 'Beute', 500)
+beuteverlust = Flow.Flow('Beuteverlust', 'Beute/Woche')
+verlustrateBeute = Constant.Constant('VerlustrateBeute', '1/(Woche*Raeuber)', 0.001)
+
+wachstumsrateRaeuber = Constant.Constant('WachstumsrateRaeuber', '1/(Woche*Beute)', 0.0002)
+raeuberzuwachs = Flow.Flow('Raeuberzuwachs', 'Raeuber/Woche')
+raeuber = Level.Level('Raeuber', 'Raeuber', 50)
+energieverlust = Flow.Flow('Energieverlust', 'Raeuber/Woche')
+energieverlustrateRaeuber = Constant.Constant('EnergieverlustrateRaeuber', '1/Woche', 0.1)
+
+treffen = Auxiliary.Auxiliary('Treffen', 'Rauber*Beute')
 #testVar4 = Auxiliary.Auxiliary('Treffen', 'Hase/Hasen')
 
 #testLevel = Level.Level('Beute', 'Hase/Hasen', 500)
@@ -27,13 +39,26 @@ testOutputFlow = Flow.Flow('Verlust', 'Hasen/Woche')
 
 mainModel = Model.Model("Model", 0, 10, 1)
 
-mainModel.addSystemVariable(testBeute)
-mainModel.addSystemVariable(testInputFlow)
-mainModel.addSystemVariable(testOutputFlow)
+mainModel.addSystemVariable(weidekapazitaet)
+mainModel.addSystemVariable(wachstumsrateBeute)
+mainModel.addSystemVariable(beutezuwachs)
+mainModel.addSystemVariable(beute)
+mainModel.addSystemVariable(beuteverlust)
+mainModel.addSystemVariable(verlustrateBeute)
+
+mainModel.addSystemVariable(wachstumsrateRaeuber)
+mainModel.addSystemVariable(raeuberzuwachs)
+mainModel.addSystemVariable(raeuber)
+mainModel.addSystemVariable(energieverlust)
+mainModel.addSystemVariable(energieverlustrateRaeuber)
+
+mainModel.addSystemVariable(treffen)
 #mainModel.addSystemVariable(testVar4)
 
-testBeute.addInputFlow(testInputFlow)
-testBeute.addOutputFlow(testOutputFlow)
+beute.addInputFlow(beutezuwachs)
+beute.addOutputFlow(beuteverlust)
+raeuber.addInputFlow(raeuberzuwachs)
+raeuber.addOutputFlow(energieverlust)
 
 #mainModel.defineCausalEdge(testVar1, testVar2)
 
@@ -43,22 +68,44 @@ testBeute.addOutputFlow(testOutputFlow)
 #test.getCauses()
 
 
-inputEquation = Equation("Beutewachstum", testBeute)
-inputEquation.defineFunction("0.05 * Beute")
+inputEquationBeute = Equation("Beutewachstum", wachstumsrateBeute,beute,weidekapazitaet )
+inputEquationBeute.defineFunction("WachstumsrateBeute*Beute*(1-(Beute/Weidekapazitaet))")
 
-outputEquation = Equation("Beuteverlust", testBeute)
-outputEquation.defineFunction("(0.001/1) * Beute")
+outputEquationBeute = Equation("Beuteverlust", treffen, verlustrateBeute)
+outputEquationBeute.defineFunction("Treffen*VerlustrateBeute")
 
-testInputFlow.addEquation(inputEquation)
-testOutputFlow.addEquation(outputEquation)
+beutezuwachs.addEquation(inputEquationBeute)
+beuteverlust.addEquation(outputEquationBeute)
 
-beuteEquation = Equation("Anzahl_Beute", testInputFlow, testOutputFlow)
-beuteEquation.defineFunction("Zuwachs - Verlust")
-testBeute.addEquation(beuteEquation)
+beuteEquation = Equation("AnzahlBeute", beutezuwachs, beuteverlust)
+beuteEquation.defineFunction("Beutezuwachs - Beuteverlust")
+beute.addEquation(beuteEquation)
 
-print(mainModel.listSystemVariable)
-mainModel.listSystemVariable.sort(key=lambda x: x.type.value, reverse=False)
-print(mainModel.listSystemVariable)
+
+
+inputEquationRaeuber = Equation("Rauberwachstum", wachstumsrateRaeuber, treffen)
+inputEquationRaeuber.defineFunction("WachstumsrateRaeuber*Treffen")
+
+outputEquationRaeuber = Equation("Raeuberverlust", raeuber, energieverlustrateRaeuber)
+outputEquationRaeuber.defineFunction("Raeuber*EnergieverlustrateRaeuber")
+
+raeuberzuwachs.addEquation(inputEquationRaeuber)
+energieverlust.addEquation(outputEquationRaeuber)
+
+raeuberEquation = Equation("AnzahlRaeuber", raeuberzuwachs, energieverlust)
+raeuberEquation.defineFunction("Raeuberzuwachs - Energieverlust")
+raeuber.addEquation(raeuberEquation)
+
+
+
+treffenEquation = Equation("Treffen", beute, raeuber)
+treffenEquation.defineFunction("Beute*Raeuber")
+treffen.addEquation(treffenEquation)
+
+
+#print(mainModel.listSystemVariable)
+#mainModel.listSystemVariable.sort(key=lambda x: x.type.value, reverse=False)
+#print(mainModel.listSystemVariable)
 #print(testlist)
 
 mainModel.run()
