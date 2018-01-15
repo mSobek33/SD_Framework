@@ -5,7 +5,7 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.widgets import Button
+from matplotlib.widgets import Button, RadioButtons
 from src.systemInput import Type
 from matplotlib.widgets import CheckButtons
 
@@ -17,74 +17,72 @@ class GraphicalUserInterface:
         draw model-diagrams
         :param model: 
         :return: 
+        
         """
-        d = {}  # https://stackoverflow.com/questions/6181935/how-do-you-create-different-variable-names-while-in-a-loop
-        listName = list()
-        listVisualization = list()
-        fig, ax = plt.subplots()
         x = list(range(model.starttime, model.endtime + 1, model.timestep))
+        dict = {}
+        listName = list()
+        listName.append('all')
+
+
+        counter = 0
+
         for variable in model.listSystemVariable:
             if variable.type != Type.Type.constant:
-                d["{0}".format(variable.name)], = ax.plot(x, variable.valueHistoryList , visible=False, lw=2)
+                dict[variable.name] = variable.valueHistoryList
                 listName.append(variable.name)
-                listVisualization.append(False)
 
-        plt.subplots_adjust(left=0.2)
-        rax = plt.axes([0.05, 0.4, 0.1, 0.15])
-        check = CheckButtons(rax, listName, listVisualization)
+
+
+        length= len(dict)
+        col = 0
+        if(length <= 6):
+            col = 2
+        else:
+            col = 3
+        row = int(length/2)
+
+        counter = 1
+
+        def definitionAll(col, counter, dict, row, x):
+            for i in dict:
+                plt.subplot(col, row, counter)
+                counter += 1
+                plt.plot(x, dict[i], visible=True, lw=1)
+                plt.xlabel('Time')
+                plt.title(i)
+                plt.tight_layout()
+                plt.subplots_adjust(left=0.3)
+                plt.grid()
+
+        definitionAll(col, counter, dict, row, x)
+
+        rax = plt.axes([0.025, 0.5, 0.02*length, 0.04*length])
+        radio = RadioButtons(rax, listName)
 
         def func(label):
-            d[label].set_visible(not d[label].get_visible())
-            plt.draw()
-
-        check.on_clicked(func)
-
-        plt.show()
-
-
-
-
-"""
-        distance = 0.02
-        plt.subplots_adjust(bottom=0.2)
-        x = list(range(model.starttime, model.endtime + 1, model.timestep))
-        d = {}  # https://stackoverflow.com/questions/6181935/how-do-you-create-different-variable-names-while-in-a-loop
-        index = 0
-
-        def onClick(event):
-            """"""
-            Define on Click function for Button
-            should draw diagram for clicked variable
-            :param variable: 
-            :return: 
-            """""""
-            event.canvas.figure.clear()
-            event.canvas.figure.gca().plot(x, variable.valueHistoryList, lw=2)
-            plt.title(variable.name)
-            event.canvas.draw()
-            pass
-
-
-        for variable in model.listSystemVariable:
-            self.currentVariable = variable
-            if index == 0 and variable.type != Type.Type.constant:
-                self.window, = plt.plot(x, variable.valueHistoryList, lw=2)
-                plt.title(variable.name)
-                ax = plt.axes([distance, 0.05, 0.1, 0.075])
-                distance += 0.111
-                d["btn{0}".format(variable)] = Button(ax, variable.name)
-                d["btn{0}".format(variable)].on_clicked(onClick)
-                index += 1
+            if(label=='all'):
+                definitionAll(col, counter, dict, row, x)
+                plt.draw()
             else:
-                if variable.type != Type.Type.constant:
-                    ax = plt.axes([distance, 0.05, 0.1, 0.075])
-                    distance += 0.111
-                    d["btn{0}".format(variable)] = Button(ax, variable.name)
-                    d["btn{0}".format(variable)].on_clicked(onClick)
-                    pass
+                #needed because otherwith 2 lines in one figure
+                plt.subplot(2,2,1)
+                plt.draw()
+                plt.subplot(1, 1, 1)
+                plt.plot(x, dict[label], lw=1)
+                plt.xlabel('Time')
+                plt.title(label)
+                plt.grid()
+                plt.draw()
+
+
+        radio.on_clicked(func)
+
+        wm = plt.get_current_fig_manager()
+        wm.window.state('zoomed')
+
         plt.show()
 
-"""
 
 
 

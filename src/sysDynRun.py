@@ -1,7 +1,7 @@
 # To change this license header, choose License Headers in Project Properties.
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
-
+from src.diagram import GraphicalUserInterface
 
 if __package__ is None:
     import sys
@@ -109,6 +109,9 @@ treffen.addEquation(treffenEquation)
 #print(testlist)
 
 mainModel.run()
+
+gui = GraphicalUserInterface.GraphicalUserInterface()
+gui.drawGraphic(mainModel)
 
 #print(testVar4.newValue)
 #testVar4.addEquation(e)
