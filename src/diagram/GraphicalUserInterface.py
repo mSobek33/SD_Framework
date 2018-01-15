@@ -7,6 +7,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.widgets import Button
 from src.systemInput import Type
+from matplotlib.widgets import CheckButtons
 
 
 class GraphicalUserInterface:
@@ -17,6 +18,33 @@ class GraphicalUserInterface:
         :param model: 
         :return: 
         """
+        d = {}  # https://stackoverflow.com/questions/6181935/how-do-you-create-different-variable-names-while-in-a-loop
+        listName = list()
+        listVisualization = list()
+        fig, ax = plt.subplots()
+        x = list(range(model.starttime, model.endtime + 1, model.timestep))
+        for variable in model.listSystemVariable:
+            if variable.type != Type.Type.constant:
+                d["{0}".format(variable.name)], = ax.plot(x, variable.valueHistoryList , visible=False, lw=2)
+                listName.append(variable.name)
+                listVisualization.append(False)
+
+        plt.subplots_adjust(left=0.2)
+        rax = plt.axes([0.05, 0.4, 0.1, 0.15])
+        check = CheckButtons(rax, listName, listVisualization)
+
+        def func(label):
+            d[label].set_visible(not d[label].get_visible())
+            plt.draw()
+
+        check.on_clicked(func)
+
+        plt.show()
+
+
+
+
+"""
         distance = 0.02
         plt.subplots_adjust(bottom=0.2)
         x = list(range(model.starttime, model.endtime + 1, model.timestep))
@@ -24,12 +52,12 @@ class GraphicalUserInterface:
         index = 0
 
         def onClick(event):
-            """
+            """"""
             Define on Click function for Button
             should draw diagram for clicked variable
             :param variable: 
             :return: 
-            """
+            """""""
             event.canvas.figure.clear()
             event.canvas.figure.gca().plot(x, variable.valueHistoryList, lw=2)
             plt.title(variable.name)
@@ -56,7 +84,7 @@ class GraphicalUserInterface:
                     pass
         plt.show()
 
-
+"""
 
 
 
