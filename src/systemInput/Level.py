@@ -2,20 +2,10 @@ import pydoc
 
 from src.systemInput.SystemVariable import SystemVariable, Type
 
-"""
-Wir sollten LEVEL, AUXILIARY and CONSTANT als Kindklassen von SystemVariable definieren.
-Probeme die ich sehe bspw. LEVEL braucht keine Gleichung
-Type auxiliary braucht keinen Startwert
-durch die jetztige Beschriebung können auch an Constanten Flows angegangen werden
-Konstanten müssen sehr aufwädig definiert werden, obwohl sie so einfach sind.
-Wenn wir das so belassen wie jetzt, müssten wir alles mit Typabfragen abfangen 
-Können bereits definierte Methoden dann in die einzelnen Klassen packen
-"""
-
-
 class Level(SystemVariable):
     
     def __init__(self, name, unit, initialValue):
+        #SystemVariable.__init__(name, unit)
         self.name = name
         self.unit = unit
         self.initialValue = initialValue
@@ -25,8 +15,9 @@ class Level(SystemVariable):
         self.causalEdgeList = list()
         self.model = ""
         self.valueHistoryList = list()
-        # TODO
         self.valueHistoryList.append(initialValue)
+        self.outputFlow =""
+        self.initialValue=""
         
         
     def addOutputFlow(self, outputflow):
@@ -44,14 +35,24 @@ class Level(SystemVariable):
         :return: 
         """
         self.inputFlow = inputflow
-        
-        
-    def calculateNewValue(self):
+
+
+    def addEquation(self, equation):
+        """
+        set equation, just if the SystemVariable is no level
+        :param equatition: define function
+        :return: 
+        """
+        self.equation = equation
+
+
+    def calculateChange(self):
         """
         Aktuellen Wert aus Flüssen berechnen
         :return: 
         """
         if hasattr(self, 'equation'):
+            #Abfrage ob inhalte mit Flows uerbeinstimmern
             return self.equation.calculateNewValue()
         else:
             raise Exception("EQUATION MUST BE DEFINED: "+self.name)

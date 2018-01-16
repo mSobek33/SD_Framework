@@ -57,7 +57,7 @@ class GraphicalUserInterface:
 
         definitionAll(col, counter, dict, row, x)
 
-        rax = plt.axes([0.025, 0.5, 0.02*length, 0.04*length])
+        rax = plt.axes([0.025, 0.5, 0.03*length, 0.04*length])
         radio = RadioButtons(rax, listName)
 
         def func(label):
@@ -82,7 +82,3 @@ class GraphicalUserInterface:
         wm.window.state('zoomed')
 
         plt.show()
-
-
-
-

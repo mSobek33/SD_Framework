@@ -37,7 +37,7 @@ treffen = Auxiliary.Auxiliary('Treffen', 'Rauber*Beute')
 #print(testLevel.initialValue)
 #print(testLevel.type)
 
-mainModel = Model.Model("Model", 0, 10, 1)
+mainModel = Model.Model("Model", 0, 100, 1)
 
 mainModel.addSystemVariable(weidekapazitaet)
 mainModel.addSystemVariable(wachstumsrateBeute)

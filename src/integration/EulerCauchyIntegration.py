@@ -9,8 +9,7 @@ class EulerCauchyIntegration:
         :param levels: levels of the model
         :return: 
         """
-        
-        level.newValue = level.currentValue + level.calculateNewValue() * timestep
+        level.newValue = level.currentValue + level.calculateChange() * timestep
             
 
 

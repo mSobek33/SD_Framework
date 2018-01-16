@@ -20,11 +20,6 @@ class SystemVariable:
         """
         self.name = name
         self.unit = unit
-        #self.currentValue = currentValue
-        #self.newValue= newValue
-        #self.type = type
-        #self.inputFlow = list()
-        #self.outputFlow = list()
         self.causalEdgeList = list()
         self.model = ""
 
@@ -40,7 +35,6 @@ class SystemVariable:
     def getCauses(self):
         """
         Get all variables that affect the current value of this variable
-        
         :return: all variables that affect the current value of this variable
         """
         self.causesList = list()
@@ -48,27 +42,3 @@ class SystemVariable:
             if(i.endVariable.name != self.name):
                 self.causesList.append(i.endVariable)
         return self.causesList
-        
-        
-    def addEquation(self, equation):
-        """
-        set equation, just if the SystemVariable is no level
-        :param equatition: define function
-        :return: 
-        """
-        
-        self.equation = equation
-
-
-
-    def calculateNewValue(self):
-        """
-        Aktuellen Wert aus Flüssen berechnen
-        :return: 
-        """
-        if hasattr(self, 'equation'):
-            self.newValue = self.equation.calculateNewValue()
-        else:
-            raise Exception("EQUATION MUST BE DEFINED: "+self.name)
-        
-        
