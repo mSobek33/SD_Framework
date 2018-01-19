@@ -1,17 +1,13 @@
-# To change this license header, choose License Headers in Project Properties.
-# To change this template file, choose Tools | Templates
-# and open the template in the editor.
-import pydoc
-from src.systemInput import Type
 
+import pydoc
 class SystemVariable:
-    
-    pass
-    
+    """
+    Superclass to define SystemVariable in an system dynamic simulation model.
+    """
+
     def __init__(self, name, unit):
         """
         Construct a new 'SystemVariable' object.
-
         :param name: Name of the SystemVariable
         :param unit: Unit of the values
         :param initialValue: Value for the SystemVariable to start the simulation

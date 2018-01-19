@@ -1,21 +1,29 @@
 import pydoc
 import re
 
-
 class Equation:
     """
-    Class to define the Equations for the different Flows
+    Class to define the Equations for the different SystemVariables
     """
-    pass
 
     def __init__(self, name, *args):
         """
-        Construct a new Flow-'Evaluation'
-        :param name: set name of function
+        Create a new 'Evaluation' object
+        :param name: set name of the function
         :param args: a list (various) of SystemVariables
         """
         self.name = name
         self.listVariable = dict()
+        for i in args:
+            self.listVariable[i.name] = i
+
+
+    def addCalculationVariable(self, *args):
+        """
+        Add new Variables to Equation
+        :param args: a list (various) of SystemVariables
+        :return: nothing
+        """
         for i in args:
             self.listVariable[i.name] = i
 
@@ -33,12 +41,10 @@ class Equation:
 
     def calculateNewValue(self):
         """
-        Calculate the new value
+        Calculate the new value, current timestep
         :return: 
         """
-
         list = ["+", "-", "*", "/", "(", ")"]
-
         splittedEquation = re.split("([-,*,+,/,(,),])", self.functionalEquation.replace(" ", ""))
         counter = 0
         for i in splittedEquation:
@@ -48,7 +54,7 @@ class Equation:
             elif any(i in item for item in list):
                 pass
             elif self.__is_float(i)==False:
-                raise Exception("ATTRIBUTE " + i + " DOES NOT EXIST")
+                raise Exception("ATTRIBUTE " + i + " DOES NOT EXIST, YOU HAVE TO ADD THESE CALCULATION VARIABLE TO EQUATION: " + self.name)
             counter += 1
         return eval("".join(splittedEquation))
 

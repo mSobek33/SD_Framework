@@ -1,31 +1,25 @@
-#See https://python-graph-gallery.com/line-chart/
-#https://matplotlib.org/examples/widgets/buttons.html
-
-# libraries
-
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.widgets import Button, RadioButtons
+from matplotlib.widgets import RadioButtons
 from src.systemInput import Type
-from matplotlib.widgets import CheckButtons
-
 
 class GraphicalUserInterface:
+    """
+    Class to define the GUI to display the results.
+    """
 
     def drawGraphic(self, model):
         """
         draw model-diagrams
-        :param model: 
-        :return: 
-        
+        :param model: the current System dynamic model
+        :return: nothing
         """
+
         x = list(range(model.starttime, model.endtime + 1, model.timestep))
-        dict = {}
+
+        dict = {} #lists all Variable
         listName = list()
         listName.append('all')
-
-
-        counter = 0
 
         for variable in model.listSystemVariable:
             if variable.type != Type.Type.constant:
@@ -33,39 +27,53 @@ class GraphicalUserInterface:
                 listName.append(variable.name)
 
 
-
-        length= len(dict)
-        col = 0
+        length = len(dict)
+        column = 0
         if(length <= 6):
-            col = 2
+            column = 2
         else:
-            col = 3
+            column = 3
         row = int(length/2)
 
-        counter = 1
+        diagramPositionCounter = 1
 
         def definitionAll(col, counter, dict, row, x):
-            for i in dict:
+            """
+            define window, where all diagrams shown.
+            :param col: column
+            :param counter: diagram position counter
+            :param dict: list of all systemVariables
+            :param row: row
+            :param x: x-values
+            :return: 
+            """
+            for variale in dict:
                 plt.subplot(col, row, counter)
                 counter += 1
-                plt.plot(x, dict[i], visible=True, lw=1)
+                plt.plot(x, dict[variale], visible=True, lw=1)
                 plt.xlabel('Time')
-                plt.title(i)
+                plt.title(variale)
                 plt.tight_layout()
                 plt.subplots_adjust(left=0.3)
                 plt.grid()
 
-        definitionAll(col, counter, dict, row, x)
+        definitionAll(column, diagramPositionCounter, dict, row, x)
 
+        #Radiobutton Bar
         rax = plt.axes([0.025, 0.5, 0.03*length, 0.04*length])
         radio = RadioButtons(rax, listName)
 
         def func(label):
+            """
+            define the diagram window depending on the selected label.
+            :param label: 
+            :return: 
+            """
             if(label=='all'):
-                definitionAll(col, counter, dict, row, x)
+                definitionAll(column, diagramPositionCounter, dict, row, x)
                 plt.draw()
             else:
-                #needed because otherwith 2 lines in one figure
+                #needed because otherwise 2 lines in one figure
                 plt.subplot(2,2,1)
                 plt.draw()
                 plt.subplot(1, 1, 1)
@@ -75,9 +83,9 @@ class GraphicalUserInterface:
                 plt.grid()
                 plt.draw()
 
-
         radio.on_clicked(func)
 
+        #window with maximum expansion
         wm = plt.get_current_fig_manager()
         wm.window.state('zoomed')
 

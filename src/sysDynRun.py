@@ -1,8 +1,7 @@
-# To change this license header, choose License Headers in Project Properties.
-# To change this template file, choose Tools | Templates
-# and open the template in the editor.
-from src.diagram import GraphicalUserInterface
-
+"""
+Testclass 
+Raueber-Beute-System
+"""
 if __package__ is None:
     import sys
     from os import path
@@ -13,6 +12,7 @@ else:
     from src.systemInput import SystemVariable, Type, Model, Level, Constant, Auxiliary, Flow
     from src.integration.Equation import Equation
 
+#Define Level, Auxiliary, Flow and Constant
 
 weidekapazitaet = Constant.Constant('Weidekapazitaet', 'Beute', 300)
 wachstumsrateBeute = Constant.Constant('WachstumsrateBeute', '1/Woche', 0.05)
@@ -28,16 +28,13 @@ energieverlust = Flow.Flow('Energieverlust', 'Raeuber/Woche')
 energieverlustrateRaeuber = Constant.Constant('EnergieverlustrateRaeuber', '1/Woche', 0.1)
 
 treffen = Auxiliary.Auxiliary('Treffen', 'Rauber*Beute')
-#testVar4 = Auxiliary.Auxiliary('Treffen', 'Hase/Hasen')
 
-#testLevel = Level.Level('Beute', 'Hase/Hasen', 500)
 
-#print(testLevel.name)
-#print(testLevel.unit)
-#print(testLevel.initialValue)
-#print(testLevel.type)
+#Define Model
+#Put SystemVariable
 
-mainModel = Model.Model("Model", 0, 100, 1)
+
+mainModel = Model.Model("Model", 0, 100, 10)
 
 mainModel.addSystemVariable(weidekapazitaet)
 mainModel.addSystemVariable(wachstumsrateBeute)
@@ -53,23 +50,20 @@ mainModel.addSystemVariable(energieverlust)
 mainModel.addSystemVariable(energieverlustrateRaeuber)
 
 mainModel.addSystemVariable(treffen)
-#mainModel.addSystemVariable(testVar4)
+
+
+#Define Input and Output-Flows
 
 beute.addInputFlow(beutezuwachs)
 beute.addOutputFlow(beuteverlust)
 raeuber.addInputFlow(raeuberzuwachs)
 raeuber.addOutputFlow(energieverlust)
 
-#mainModel.defineCausalEdge(testVar1, testVar2)
 
-# get the names of the variables from the first CausalEdge item
-#print(testVar1.causalEdgeList[0].startVariable.name)
-#print(testVar1.causalEdgeList[0].endVariable.name)
-#test.getCauses()
-
-
-inputEquationBeute = Equation("Beutewachstum", wachstumsrateBeute,beute,weidekapazitaet )
+#Define Equations
+inputEquationBeute = Equation("Beutewachstum", wachstumsrateBeute,beute)
 inputEquationBeute.defineFunction("WachstumsrateBeute*Beute*(1-(Beute/Weidekapazitaet))")
+inputEquationBeute.addCalculationVariable(weidekapazitaet)
 
 outputEquationBeute = Equation("Beuteverlust", treffen, verlustrateBeute)
 outputEquationBeute.defineFunction("Treffen*VerlustrateBeute")
@@ -80,8 +74,6 @@ beuteverlust.addEquation(outputEquationBeute)
 beuteEquation = Equation("AnzahlBeute", beutezuwachs, beuteverlust)
 beuteEquation.defineFunction("Beutezuwachs - Beuteverlust")
 beute.addEquation(beuteEquation)
-
-
 
 inputEquationRaeuber = Equation("Rauberwachstum", wachstumsrateRaeuber, treffen)
 inputEquationRaeuber.defineFunction("WachstumsrateRaeuber*Treffen")
@@ -96,26 +88,11 @@ raeuberEquation = Equation("AnzahlRaeuber", raeuberzuwachs, energieverlust)
 raeuberEquation.defineFunction("Raeuberzuwachs - Energieverlust")
 raeuber.addEquation(raeuberEquation)
 
-
-
 treffenEquation = Equation("Treffen", beute, raeuber)
 treffenEquation.defineFunction("Beute*Raeuber")
 treffen.addEquation(treffenEquation)
 
-
-#print(mainModel.listSystemVariable)
-#mainModel.listSystemVariable.sort(key=lambda x: x.type.value, reverse=False)
-#print(mainModel.listSystemVariable)
-#print(testlist)
-
+#Run Model
 mainModel.run()
 
-gui = GraphicalUserInterface.GraphicalUserInterface()
-gui.drawGraphic(mainModel)
 
-#print(testVar4.newValue)
-#testVar4.addEquation(e)
-#testVar4.calculateNewValue()
-#print(testVar4.newValue)
-
-#testVar.addCausalEdge()

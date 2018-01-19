@@ -1,27 +1,27 @@
-from src.systemInput.SystemVariable import SystemVariable, Type
+from src.systemInput import Type
+from src.systemInput.SystemVariable import SystemVariable
 
 class Flow(SystemVariable):
+    """
+    Class to define constants in an system dynamic simulation model.
+    """
 
     def __init__(self, name, unit):
         """
-        Define new Flow (if it is input or output is define in SystemVariable)
+        Construct a new flow object.
         :param name: name of the Flow
-        :param equation: formula for calculation
+        :param unit: Unit of the values
         """
-        #SystemVariable.__init__(name, unit)
-        self.name = name
-        self.unit = unit
+        SystemVariable.__init__(self, name, unit)
         self.type = Type.Type.flow
-        self.causalEdgeList = list()
         self.currentValue = "" 
         self.newValue = ""
-        self.model = ""
         self.valueHistoryList = list()
         self.valueHistoryList.append(None)
 
     def addEquation(self, equation):
         """
-        set equation, just if the SystemVariable is no level
+        set equation
         :param equatition: define function
         :return: 
         """
@@ -29,7 +29,7 @@ class Flow(SystemVariable):
 
     def calculateNewValue(self):
         """
-        Calculate new value
+        Calculate new value, current timestep
         :return: 
         """
         if hasattr(self, 'equation'):

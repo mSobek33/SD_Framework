@@ -6,19 +6,22 @@ if __package__ is None:
     sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
     from src.systemInput import CausalEdge, Type
     from src.integration import EulerCauchyIntegration
+    from src.diagram import GraphicalUserInterface
 else:
     from src.systemInput import CausalEdge, Type
     from src.integration import EulerCauchyIntegration
+    from src.diagram import GraphicalUserInterface
 
 
 class Model:
+    """
+    Class to create a system dynamic simulation model
+    """
 
     def __init__(self, name, starttime, endtime, timestep):
         """
         Construct a new 'Model' object.
-
-        :param modelname: define the name of the Model
-        :param listSystemVariable: lists all Nodes (SystemVariable)
+        :param name: define the name of the Model
         :param starttime: define starttime
         :param endtime: define endtime
         :param timesteps: define timesteps, for the simulation
@@ -41,9 +44,9 @@ class Model:
             if(i.name == systemVariable.name):
                 print("The variable '" + systemVariable.name + "' already exists!")
                 return          
-        #EXCEPTION HANDLING? > Abfrage ob Typ passend
+        #toDO
+        # EXCEPTION HANDLING? > Abfrage ob Typ passend
         systemVariable.model = self
-        print(systemVariable.model.modelname)
         self.listSystemVariable.append(systemVariable)
 
     def defineCausalEdge(self, startVariable, endVariable):
@@ -59,37 +62,35 @@ class Model:
     def run(self):
         """
         run whole model
+        calculate values for every timestep
+        including create and display diagrams
         """
         self.timeboundary =  (self.endtime - self.starttime)/self.timestep
         
-        i = 0
+        time = 0
         
-        # Liste nach Typen ordnen (Flows müssen zuerst berechnet werden!
+        #Important, flow and auxiliary has to be caluculated bevor level
         self.listSystemVariable.sort(key=lambda x: x.type.value, reverse=False)
         
-        while i<self.timeboundary:
-            
-            for i2 in self.listSystemVariable:
-                if i2.type == Type.Type.level:
+        while time<self.timeboundary:
+
+            for currentVariable in self.listSystemVariable:
+                if currentVariable.type == Type.Type.level:
                     eci = EulerCauchyIntegration.EulerCauchyIntegration()
-                    eci.integrate(self.timestep, i2)
-                    i2.valueHistoryList.append(i2.newValue)
-                    # TODO
-                elif i2.type == Type.Type.flow:
-                    i2.calculateNewValue()
-                    i2.valueHistoryList.append(i2.newValue)
-                    i2.currentValue = i2.newValue
-                elif i2.type == Type.Type.auxiliary:
-                    i2.calculateNewValue()
-                    i2.valueHistoryList.append(i2.newValue)
-                    i2.currentValue = i2.newValue
-                    
-            for i3 in self.listSystemVariable:
-                if i3.type == Type.Type.level:
-                    i3.currentValue = i3.newValue
+                    eci.integrate(self.timestep, currentVariable)
+                    currentVariable.valueHistoryList.append(currentVariable.newValue)
+                elif currentVariable.type == Type.Type.flow or currentVariable.type == Type.Type.auxiliary:
+                    currentVariable.calculateNewValue()
+                    currentVariable.valueHistoryList.append(currentVariable.newValue)
+                    currentVariable.currentValue = currentVariable.newValue
+
+            #set value currentValue = newValue
+            for variable in self.listSystemVariable:
+                if variable.type == Type.Type.level:
+                    variable.currentValue = variable.newValue
     
-            i +=1
-        
-        for i4 in self.listSystemVariable:
-            if i4.type != Type.Type.constant:
-                print(i4.valueHistoryList)
+            time +=1
+
+        #draw and show diagrams
+        gui = GraphicalUserInterface.GraphicalUserInterface()
+        gui.drawGraphic(self)

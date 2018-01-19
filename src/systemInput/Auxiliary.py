@@ -1,35 +1,31 @@
 import pydoc
 
-from src.systemInput.SystemVariable import SystemVariable,Type
+from src.systemInput import Type
+from src.systemInput.SystemVariable import SystemVariable
 
 class Auxiliary(SystemVariable):
+    """
+    Class to define auxiliaries in an system dynamic simulation model.
+    """
     
     def __init__(self, name, unit):
         """
-        Construct a new 'SystemVariable' object.
-
-        :param name: Name of the SystemVariable
+        Construct a new auxiliary object.
+        :param name: Name of the Auxiliary
         :param unit: Unit of the values
-        :param initialValue: Value for the SystemVariable to start the simulation
-        :param type: Enumeration for the specific SystemVariable type
         :return: returns nothing
         """
-        # hier constructor superklasse
-        #SystemVariable.__init__(name, unit)
-        self.name = name
-        self.unit = unit
+        SystemVariable.__init__(self, name, unit)
         self.type = Type.Type.auxiliary
-        self.causalEdgeList = list()
         self.newValue = ""
         self.currentValue = ""
-        self.model = ""
         self.valueHistoryList = list()
         self.valueHistoryList.append(None)
 
 
     def addEquation(self, equation):
         """
-        set equation, just if the SystemVariable is no level
+        set equation
         :param equatition: define function
         :return: 
         """
@@ -38,7 +34,7 @@ class Auxiliary(SystemVariable):
 
     def calculateNewValue(self):
         """
-        Calculate new value
+        Calculate new value, current timestep
         :return: 
         """
         if hasattr(self, 'equation'):
