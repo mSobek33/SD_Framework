@@ -1,7 +1,7 @@
 import unittest
 
 from src.systemInput.Model import Model
-from src.systemInput import SystemVariable, Type
+from src.systemInput import SystemVariable
 
 
 
@@ -10,7 +10,7 @@ class TestModel(unittest.TestCase):
     def test_addSystemVariable(self):
         model = Model("A", 0, 20, 10)
         length = len(model.listSystemVariable)
-        model.addSystemVariable(SystemVariable.SystemVariable("name", "Meter", 100, Type.Type.constant))
+        model.addSystemVariable(SystemVariable.SystemVariable("name", "Meter", 100))
         self.assertEquals(len(model.listSystemVariable), length+1)
 
 

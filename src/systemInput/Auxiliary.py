@@ -1,11 +1,10 @@
 import pydoc
 
-from src.systemInput import Type
 from src.systemInput.SystemVariable import SystemVariable
 
 class Auxiliary(SystemVariable):
     """
-    Class to define auxiliaries in an system dynamic simulation model.
+    Class to define auxiliaries in a system dynamic simulation model.
     """
     
     def __init__(self, name, unit):
@@ -16,11 +15,11 @@ class Auxiliary(SystemVariable):
         :return: returns nothing
         """
         SystemVariable.__init__(self, name, unit)
-        self.type = Type.Type.auxiliary
         self.newValue = ""
         self.currentValue = ""
         self.valueHistoryList = list()
         self.valueHistoryList.append(None)
+        self.calcPriority = 1
 
 
     def addEquation(self, equation):

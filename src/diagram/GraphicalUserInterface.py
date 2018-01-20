@@ -1,7 +1,16 @@
+import importlib
+try:
+    importlib.import_module('matplotlib')
+except ImportError:
+    import pip
+    pip.main(['install', 'matplotlib'])
+finally:
+    globals()['matplotlib'] = importlib.import_module('matplotlib')
+
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.widgets import RadioButtons
-from src.systemInput import Type
+from src.systemInput import Constant
 
 class GraphicalUserInterface:
     """
@@ -22,7 +31,7 @@ class GraphicalUserInterface:
         listName.append('all')
 
         for variable in model.listSystemVariable:
-            if variable.type != Type.Type.constant:
+            if isinstance(variable, Constant.Constant) == False:
                 dict[variable.name] = variable.valueHistoryList
                 listName.append(variable.name)
 

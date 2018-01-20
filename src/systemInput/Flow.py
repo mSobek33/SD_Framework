@@ -1,9 +1,8 @@
-from src.systemInput import Type
 from src.systemInput.SystemVariable import SystemVariable
 
 class Flow(SystemVariable):
     """
-    Class to define constants in an system dynamic simulation model.
+    Class to define constants in a system dynamic simulation model.
     """
 
     def __init__(self, name, unit):
@@ -13,11 +12,11 @@ class Flow(SystemVariable):
         :param unit: Unit of the values
         """
         SystemVariable.__init__(self, name, unit)
-        self.type = Type.Type.flow
         self.currentValue = "" 
         self.newValue = ""
         self.valueHistoryList = list()
         self.valueHistoryList.append(None)
+        self.calcPriority = 2
 
     def addEquation(self, equation):
         """

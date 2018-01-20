@@ -5,7 +5,10 @@
 import pydoc
 
 class CausalEdge:
-    pass
+    
+    """
+    Class to define CausalEdges between two SystemVariables in a system dynamic simulation model.
+    """
     
     def __init__(self, startVariable, endVariable):
         """
@@ -18,7 +21,6 @@ class CausalEdge:
         """
         self.startVariable = startVariable
         self.endVariable = endVariable
-        # Influence noch notwendig?
         
         if(startVariable.model == endVariable.model):
             startVariable.addCausalEdge(self)

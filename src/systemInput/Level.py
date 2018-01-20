@@ -1,10 +1,10 @@
 import pydoc
-from src.systemInput import Type
+from src.systemInput import Flow
 from src.systemInput.SystemVariable import SystemVariable
 
 class Level(SystemVariable):
     """
-    Class to define levels in an system dynamic simulation model.
+    Class to define levels in a system dynamic simulation model.
     """
     
     def __init__(self, name, unit, initialValue):
@@ -18,18 +18,18 @@ class Level(SystemVariable):
         self.initialValue = initialValue
         self.currentValue = initialValue
         self.newValue= initialValue
-        self.type = Type.Type.level
         self.valueHistoryList = list()
         self.valueHistoryList.append(initialValue)
         self.outputFlow =""
         self.initialValue=""
+        self.calcPriority = 4
 
     def addOutputFlow(self, outputflow):
         """
         Add new output Flow 
         :param outputflow: 
         """
-        if(outputflow.type == Type.Type.flow):
+        if isinstance(outputflow, Flow.Flow):
             self.outputFlow = outputflow
         else:
             raise Exception("OUTPUTFLOW FROM " + self.name + " MUST BE FLOW")
@@ -41,7 +41,7 @@ class Level(SystemVariable):
         :param outputflow: 
         :return: 
         """
-        if (inputflow.type == Type.Type.flow):
+        if isinstance(inputflow, Flow.Flow):
             self.inputFlow = inputflow
         else:
             raise Exception("INPUTFLOW FROM " + self.name + " MUST BE FLOW")

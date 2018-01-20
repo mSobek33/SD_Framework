@@ -6,10 +6,12 @@ if __package__ is None:
     import sys
     from os import path
     sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
-    from src.systemInput import SystemVariable, Type, Model, Level, Constant, Auxiliary, Flow
+    from src.systemInput import Model, Level, Constant, Auxiliary, Flow
     from src.integration.Equation import Equation
 else:
-    from src.systemInput import SystemVariable, Type, Model, Level, Constant, Auxiliary, Flow
+    import sys
+    from os import path
+    from src.systemInput import Model, Level, Constant, Auxiliary, Flow
     from src.integration.Equation import Equation
 
 #Define Level, Auxiliary, Flow and Constant
@@ -94,5 +96,7 @@ treffen.addEquation(treffenEquation)
 
 #Run Model
 mainModel.run()
+
+
 
 

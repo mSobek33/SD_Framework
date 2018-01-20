@@ -4,11 +4,11 @@ if __package__ is None:
     import sys
     from os import path
     sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
-    from src.systemInput import CausalEdge, Type
+    from src.systemInput import CausalEdge, Level, Flow, Auxiliary
     from src.integration import EulerCauchyIntegration
     from src.diagram import GraphicalUserInterface
 else:
-    from src.systemInput import CausalEdge, Type
+    from src.systemInput import CausalEdge, Level, Flow, Auxiliary
     from src.integration import EulerCauchyIntegration
     from src.diagram import GraphicalUserInterface
 
@@ -70,23 +70,23 @@ class Model:
         time = 0
         
         #Important, flow and auxiliary has to be caluculated bevor level
-        self.listSystemVariable.sort(key=lambda x: x.type.value, reverse=False)
+        self.listSystemVariable.sort(key=lambda x: x.calcPriority, reverse=False)
         
         while time<self.timeboundary:
 
             for currentVariable in self.listSystemVariable:
-                if currentVariable.type == Type.Type.level:
+                if isinstance(currentVariable, Level.Level):
                     eci = EulerCauchyIntegration.EulerCauchyIntegration()
                     eci.integrate(self.timestep, currentVariable)
                     currentVariable.valueHistoryList.append(currentVariable.newValue)
-                elif currentVariable.type == Type.Type.flow or currentVariable.type == Type.Type.auxiliary:
+                elif isinstance(currentVariable, Flow.Flow) or isinstance(currentVariable, Auxiliary.Auxiliary):
                     currentVariable.calculateNewValue()
                     currentVariable.valueHistoryList.append(currentVariable.newValue)
                     currentVariable.currentValue = currentVariable.newValue
 
             #set value currentValue = newValue
             for variable in self.listSystemVariable:
-                if variable.type == Type.Type.level:
+                if isinstance(variable, Level.Level):
                     variable.currentValue = variable.newValue
     
             time +=1

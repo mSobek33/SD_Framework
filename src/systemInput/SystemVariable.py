@@ -2,7 +2,7 @@
 import pydoc
 class SystemVariable:
     """
-    Superclass to define SystemVariable in an system dynamic simulation model.
+    Superclass to define SystemVariable in a system dynamic simulation model.
     """
 
     def __init__(self, name, unit):
@@ -10,8 +10,6 @@ class SystemVariable:
         Construct a new 'SystemVariable' object.
         :param name: Name of the SystemVariable
         :param unit: Unit of the values
-        :param initialValue: Value for the SystemVariable to start the simulation
-        :param type: Enumeration for the specific SystemVariable type
         :return: returns nothing
         """
         self.name = name

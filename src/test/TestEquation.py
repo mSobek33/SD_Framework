@@ -1,15 +1,15 @@
 import unittest
 
 from src.integration.Equation import Equation
-from src.systemInput import SystemVariable, Type
+from src.systemInput import SystemVariable
 
 
 class TestEquation(unittest.TestCase):
     #define Test-Functions
     def test_Equation(self):
-        testVar1 = SystemVariable.SystemVariable('Beute', 'Hase/Hasen', 500, Type.Type.constant)
-        testVar2 = SystemVariable.SystemVariable('Raeuber', 'Luchs/Luchse', 500, Type.Type.constant)
-        testVar3 = SystemVariable.SystemVariable('Treffen', 'Beute*Raeuber', 0, Type.Type.auxiliary )
+        testVar1 = SystemVariable.SystemVariable('Beute', 'Hase/Hasen', 500)
+        testVar2 = SystemVariable.SystemVariable('Raeuber', 'Luchs/Luchse', 500)
+        testVar3 = SystemVariable.SystemVariable('Treffen', 'Beute*Raeuber', 0)
 
         e = Equation("Beutewachstum", testVar1, testVar2)
 

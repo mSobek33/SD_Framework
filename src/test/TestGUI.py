@@ -1,9 +1,19 @@
 import unittest
 
-from src.integration.Equation import Equation
-from src.systemInput.Model import Model
-from src.systemInput import SystemVariable, Type, Level
-from src.diagram import GraphicalUserInterface
+if __package__ is None:
+    import sys
+    from os import path
+    sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
+    from integration.Equation import Equation
+    from systemInput.Model import Model
+    from systemInput import SystemVariable, Level
+    from diagram import GraphicalUserInterface
+
+else:
+    from integration.Equation import Equation
+    from systemInput.Model import Model
+    from systemInput import SystemVariable, Level
+    from diagram import GraphicalUserInterface
 
 
 class TestModel(unittest.TestCase):
