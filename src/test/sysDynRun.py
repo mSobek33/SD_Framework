@@ -2,17 +2,21 @@
 Testclass 
 Raueber-Beute-System
 """
+
+
 if __package__ is None:
     import sys
     from os import path
     sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
     from src.systemInput import Model, Level, Constant, Auxiliary, Flow
     from src.integration.Equation import Equation
+    from src.visualization.GraphicalUserInterface import GraphicalUserInterface
 else:
     import sys
     from os import path
     from src.systemInput import Model, Level, Constant, Auxiliary, Flow
     from src.integration.Equation import Equation
+    from src.visualization.GraphicalUserInterface import GraphicalUserInterface
 
 #Define Level, Auxiliary, Flow and Constant
 
@@ -36,7 +40,7 @@ treffen = Auxiliary.Auxiliary('Treffen', 'Rauber*Beute')
 #Put SystemVariable
 
 
-mainModel = Model.Model("Model", 0, 100, 10)
+mainModel = Model.Model("Model", 0, 100, 1)
 
 mainModel.addSystemVariable(weidekapazitaet)
 mainModel.addSystemVariable(wachstumsrateBeute)
@@ -98,5 +102,8 @@ treffen.addEquation(treffenEquation)
 mainModel.run()
 
 
-
+#draw and show diagrams
+gui = GraphicalUserInterface()
+gui.createCSV(mainModel, 'output.csv')
+gui.drawGraphic(mainModel)
 

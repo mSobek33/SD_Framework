@@ -6,11 +6,11 @@ if __package__ is None:
     sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
     from src.systemInput import CausalEdge, Level, Flow, Auxiliary
     from src.integration import EulerCauchyIntegration
-    from src.diagram import GraphicalUserInterface
+    from src.visualization import GraphicalUserInterface
 else:
     from src.systemInput import CausalEdge, Level, Flow, Auxiliary
     from src.integration import EulerCauchyIntegration
-    from src.diagram import GraphicalUserInterface
+    from src.visualization import GraphicalUserInterface
 
 
 class Model:
@@ -91,6 +91,3 @@ class Model:
     
             time +=1
 
-        #draw and show diagrams
-        gui = GraphicalUserInterface.GraphicalUserInterface()
-        gui.drawGraphic(self)

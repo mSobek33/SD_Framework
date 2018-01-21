@@ -1,4 +1,7 @@
+import csv
+import copy
 import importlib
+
 try:
     importlib.import_module('matplotlib')
 except ImportError:
@@ -50,7 +53,7 @@ class GraphicalUserInterface:
             """
             define window, where all diagrams shown.
             :param col: column
-            :param counter: diagram position counter
+            :param counter: visualization position counter
             :param dict: list of all systemVariables
             :param row: row
             :param x: x-values
@@ -74,7 +77,7 @@ class GraphicalUserInterface:
 
         def func(label):
             """
-            define the diagram window depending on the selected label.
+            define the visualization window depending on the selected label.
             :param label: 
             :return: 
             """
@@ -99,3 +102,34 @@ class GraphicalUserInterface:
         wm.window.state('zoomed')
 
         plt.show()
+
+
+
+    def __localize_floats(self, row):
+        """
+        Function to change decimal seperator
+        Source: https://stackoverflow.com/questions/39833555/how-to-write-a-csv-with-a-comma-as-decimal-separator
+        :param row: current row
+        :return: updatet row
+        """
+        return [
+            str(el).replace('.', ',') if isinstance(el, float) else el
+            for el in row
+        ]
+
+
+
+    def createCSV(self, model, path):
+        """
+        prit results in CSV-File
+        :param model: the current System dynamic model
+        :param path: csv-path
+        :return: 
+        """
+        with open(path, 'w', newline='') as output:
+            writer = csv.writer(output, delimiter=";")
+            for variable in model.listSystemVariable:
+                if isinstance(variable, Constant.Constant) == False:
+                    list = copy.copy(variable.valueHistoryList)
+                    list.insert(0,variable.name)
+                    writer.writerow(self.__localize_floats(list))
