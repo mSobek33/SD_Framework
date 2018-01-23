@@ -76,4 +76,17 @@ levelEquation.defineFunction("flowName - flowName2")
 level.addEquation(levelEquation)
 ```
 
-# Run model + Visulaization
+#7. Starting the model calculation
+```
+model.run()
+```
+
+ #8. Display and print results
+ ```
+ # create a ResultVisualizatior
+ result = ResultVisualization()
+ # write results in an CSV
+ reault.createCSV(model, 'output.csv')
+ # display result diagramms
+ gui.drawGraphic(model)
+ ```
