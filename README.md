@@ -9,7 +9,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-This Framework uses the Python 2D library [matplotlib] (https://matplotlib.org)
+This Framework uses the Python 2D library [matplotlib] : (https://matplotlib.org)
 ```
 Give examples
 ```
