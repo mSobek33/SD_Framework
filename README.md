@@ -9,22 +9,38 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-This Framework uses the Python 2D library * [matplotlib](https://matplotlib.org) 
+This Framework uses the Python 2D library [matplotlib](https://matplotlib.org) 
 
-### Installing
+### Usage
 
-A step by step series of examples that tell you have to get a development env running
+Below a step-by-step tutorial on how to create a System-Dynamik Model using this framework.
 
-Say what the step will be
+#1. Create all system variables
+``` 
+# create a constant with a inital value
+constant = Constant.Constant('constantName', 'constantUnit', 300)
 
+# create a level with a inital value
+level = Level.Level('levelName', 'levelUnit', 500)
+
+# create a auxiliary
+auxiliary = Auxiliary.Auxiliary('auxiliaryName', 'auxiliaryUnit')
 ```
-Give the example
+
+#2. Create all flows
+```
+# create a flow 
+flow = Flow.Flow('flowName', 'flowUnit')
 ```
 
-And repeat
-
+#3. Create the model
 ```
-until finished
+# create a model, set starttime, endtime and timesteps
+model = Model.Model("modelName", 0, 100, 1)
+# add all system variables and flows to the model
+model.addSystemVariable(constant)
+model.addSystemVariable(level)
+model.addSystemVariable(auxiliary)
+model.addSystemVariable(flow)
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
