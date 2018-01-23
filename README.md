@@ -86,7 +86,7 @@ model.run()
  # create a ResultVisualizatior
  result = ResultVisualization()
  # write results in an CSV
- reault.createCSV(model, 'output.csv')
+ result.createCSV(model, 'output.csv')
  # display result diagramms
- gui.drawGraphic(model)
+ result.drawGraphic(model)
  ```
