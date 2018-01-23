@@ -23,10 +23,6 @@ else:
 class TestSD(unittest.TestCase):
     
     def test(self):
-        checkListBeute = [500, 458.333, 423.322, 393.631, 368.27]
-        #checkListBeute.append(500, 458.333, 423.322, 393.631, 368.27)
-        checkListRaeuber = [50, 50, 49.5833, 48.8229, 47.7843]
-
         weidekapazitaet = Constant.Constant('Weidekapazitaet', 'Beute', 300)
         wachstumsrateBeute = Constant.Constant('WachstumsrateBeute', '1/Woche', 0.05)
         beutezuwachs = Flow.Flow('Beutezuwachs', 'Beute/Woche')
@@ -128,6 +124,9 @@ class TestSD(unittest.TestCase):
 
 
         # Unittests
+        # Results
+        checkListBeute = [500, 458.333, 423.322, 393.631, 368.27]
+        checkListRaeuber = [50, 50, 49.5833, 48.8229, 47.7843]
         counter = 0
         for value in raeuber.valueHistoryList[0:5]:
             self.assertAlmostEqual(value, checkListRaeuber[counter], 3)
