@@ -1,6 +1,4 @@
-# SD_Framework
-
-System Dynamics Python Framework
+# System Dynamic Framework - Python
 This framework allows the building and simulation of System Dynamic Models. 
 
 ## Getting Started
@@ -31,9 +29,17 @@ auxiliary = Auxiliary.Auxiliary('auxiliaryName', 'auxiliaryUnit')
 ```
 # create a flow 
 flow = Flow.Flow('flowName', 'flowUnit')
+flow2 = Flow.Flow('flow2Name', 'flow2Unit')
 ```
 
-#3. Create the model
+
+#3. Define input- and outputflows for level
+```
+level.addInputFlow(flow)
+level.addOutputFlow(flow2)
+```
+
+#4. Create the model
 ```
 # create a model, set starttime, endtime and timesteps
 model = Model.Model("modelName", 0, 100, 1)
@@ -42,5 +48,32 @@ model.addSystemVariable(constant)
 model.addSystemVariable(level)
 model.addSystemVariable(auxiliary)
 model.addSystemVariable(flow)
+# ...
 ```
 
+#5. Define the causal edges in the model
+```
+model.defineCausalEdge(auxiliary, level)
+```
+
+
+#6. Define and add equations to variables
+```
+# create equation, pass all systemVariables as parameters 
+flowEquation = Equation("equationName", auxiliary, constant)
+# define calculation rule
+flowEquation.defineFunction("auxiliaryName * constantName")
+# add equation to systemVariable
+flow.addEquation(flowEquation)
+
+# ...
+
+# create equation, pass all systemVariables as parameters 
+levelEquation = Equation("levelEquationName", flow, flow2)
+# define calculation rule
+levelEquation.defineFunction("flowName - flowName2")
+# add equation to systemVariable
+level.addEquation(levelEquation)
+```
+
+# Run model + Visulaization
