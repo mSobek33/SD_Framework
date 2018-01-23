@@ -1,6 +1,6 @@
 import pydoc
 
-from src.systemInput.SystemVariable import SystemVariable
+from systemInput.SystemVariable import SystemVariable
 
 class Auxiliary(SystemVariable):
     """
@@ -28,6 +28,8 @@ class Auxiliary(SystemVariable):
         :param equatition: define function
         :return: 
         """
+        print(self.getCauses)
+        
         self.equation = equation
 
 

@@ -1,6 +1,6 @@
 import pydoc
 
-from src.systemInput.SystemVariable import SystemVariable
+from systemInput.SystemVariable import SystemVariable
 
 class Constant(SystemVariable):
     """

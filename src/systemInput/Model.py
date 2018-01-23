@@ -4,11 +4,11 @@ if __package__ is None:
     import sys
     from os import path
     sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
-    from src.systemInput import CausalEdge, Level, Flow, Auxiliary
-    from src.integration import EulerCauchyIntegration
+    from systemInput import CausalEdge, Level, Flow, Auxiliary
+    from integration import EulerCauchyIntegration
 else:
-    from src.systemInput import CausalEdge, Level, Flow, Auxiliary
-    from src.integration import EulerCauchyIntegration
+    from systemInput import CausalEdge, Level, Flow, Auxiliary
+    from integration import EulerCauchyIntegration
 
 
 class Model:

@@ -1,6 +1,6 @@
 import pydoc
-from src.systemInput import Flow
-from src.systemInput.SystemVariable import SystemVariable
+from systemInput import Flow
+from systemInput.SystemVariable import SystemVariable
 
 class Level(SystemVariable):
     """
@@ -53,6 +53,7 @@ class Level(SystemVariable):
         :param equatition: define function
         :return: 
         """
+        print(self.getCauses)
         if hasattr(self, 'inputFlow') and hasattr(self, 'outputFlow'):
             if self.inputFlow.name in equation.listVariable and self.outputFlow.name in equation.listVariable:
                 self.equation = equation

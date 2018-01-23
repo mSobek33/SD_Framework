@@ -12,7 +12,7 @@ finally:
 
 import matplotlib.pyplot as plt
 from matplotlib.widgets import RadioButtons
-from src.systemInput import Constant
+from systemInput import Constant
 
 class ResultVisualization:
     """

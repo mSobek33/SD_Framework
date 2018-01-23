@@ -7,9 +7,9 @@ if __package__ is None:
     import sys
     from os import path
     sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
-    from src.systemInput import Model, Level, Constant, Auxiliary, Flow
-    from src.integration.Equation import Equation
-    from src.visualization.ResultVisualization import ResultVisualization
+    from systemInput import Model, Level, Constant, Auxiliary, Flow
+    from integration.Equation import Equation
+    from visualization.ResultVisualization import ResultVisualization
 else:
     import sys
     from os import path
@@ -55,7 +55,18 @@ mainModel.addSystemVariable(energieverlust)
 mainModel.addSystemVariable(energieverlustrateRaeuber)
 
 mainModel.addSystemVariable(treffen)
-
+ 
+mainModel.defineCausalEdge(wachstumsrateRaeuber, raeuberzuwachs)
+mainModel.defineCausalEdge(raeuber,energieverlust)
+mainModel.defineCausalEdge(energieverlustrateRaeuber,energieverlust)
+mainModel.defineCausalEdge(raeuber,treffen)
+mainModel.defineCausalEdge(treffen, raeuberzuwachs)
+mainModel.defineCausalEdge(treffen, beuteverlust)
+mainModel.defineCausalEdge(verlustrateBeute, beuteverlust)
+mainModel.defineCausalEdge(beute, treffen)
+mainModel.defineCausalEdge(beute, beutezuwachs)
+mainModel.defineCausalEdge(wachstumsrateBeute, beutezuwachs)
+mainModel.defineCausalEdge(weidekapazitaet, beutezuwachs)
 
 #Define Input and Output-Flows
 
@@ -63,6 +74,8 @@ beute.addInputFlow(beutezuwachs)
 beute.addOutputFlow(beuteverlust)
 raeuber.addInputFlow(raeuberzuwachs)
 raeuber.addOutputFlow(energieverlust)
+
+print(beute.getCauses)
 
 
 #Define Equations
@@ -102,7 +115,7 @@ mainModel.run()
 
 
 #draw and show diagrams
-gui = ResultVisualization()
-gui.createCSV(mainModel, 'output.csv')
-gui.drawGraphic(mainModel)
+#gui = ResultVisualization()
+#gui.createCSV(mainModel, 'output.csv')
+#gui.drawGraphic(mainModel)
 
