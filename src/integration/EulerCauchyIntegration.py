@@ -8,7 +8,7 @@ class EulerCauchyIntegration:
     def integrate(self, timestep, level):
         """
         calculate new state
-        Compare Bossel, Systeme Dynamik Simulation, Page 131
+        source: Bossel, Systeme Dynamik Simulation, Page 131
         :param levels: level to integrate
         :return: nothing
         """

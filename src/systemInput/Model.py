@@ -6,11 +6,9 @@ if __package__ is None:
     sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
     from src.systemInput import CausalEdge, Level, Flow, Auxiliary
     from src.integration import EulerCauchyIntegration
-    from src.visualization import GraphicalUserInterface
 else:
     from src.systemInput import CausalEdge, Level, Flow, Auxiliary
     from src.integration import EulerCauchyIntegration
-    from src.visualization import GraphicalUserInterface
 
 
 class Model:
@@ -42,10 +40,8 @@ class Model:
         """
         for i in self.listSystemVariable:
             if(i.name == systemVariable.name):
-                print("The variable '" + systemVariable.name + "' already exists!")
-                return          
-        #toDO
-        # EXCEPTION HANDLING? > Abfrage ob Typ passend
+                raise Exception("THE VARIABLE '" + systemVariable.name + "' ALREADY EXISTS")
+                return
         systemVariable.model = self
         self.listSystemVariable.append(systemVariable)
 

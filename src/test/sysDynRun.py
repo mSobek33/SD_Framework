@@ -3,20 +3,19 @@ Testclass
 Raueber-Beute-System
 """
 
-
 if __package__ is None:
     import sys
     from os import path
     sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
     from src.systemInput import Model, Level, Constant, Auxiliary, Flow
     from src.integration.Equation import Equation
-    from src.visualization.GraphicalUserInterface import GraphicalUserInterface
+    from src.visualization.ResultVisualization import ResultVisualization
 else:
     import sys
     from os import path
     from src.systemInput import Model, Level, Constant, Auxiliary, Flow
     from src.integration.Equation import Equation
-    from src.visualization.GraphicalUserInterface import GraphicalUserInterface
+    from src.visualization.ResultVisualization import ResultVisualization
 
 #Define Level, Auxiliary, Flow and Constant
 
@@ -103,7 +102,7 @@ mainModel.run()
 
 
 #draw and show diagrams
-gui = GraphicalUserInterface()
+gui = ResultVisualization()
 gui.createCSV(mainModel, 'output.csv')
 gui.drawGraphic(mainModel)
 

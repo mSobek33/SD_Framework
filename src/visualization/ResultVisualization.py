@@ -10,12 +10,11 @@ except ImportError:
 finally:
     globals()['matplotlib'] = importlib.import_module('matplotlib')
 
-import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.widgets import RadioButtons
 from src.systemInput import Constant
 
-class GraphicalUserInterface:
+class ResultVisualization:
     """
     Class to define the GUI to display the results.
     """
