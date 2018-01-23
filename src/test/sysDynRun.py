@@ -38,11 +38,17 @@ class TestSD(unittest.TestCase):
 
         treffen = Auxiliary.Auxiliary('Treffen', 'Rauber*Beute')
 
+        
+        #Define Input and Output-Flows
+
+        beute.addInputFlow(beutezuwachs)
+        beute.addOutputFlow(beuteverlust)
+        raeuber.addInputFlow(raeuberzuwachs)
+        raeuber.addOutputFlow(energieverlust)
+        
 
         #Define Model
         #Put SystemVariable
-
-
         mainModel = Model.Model("Model", 0, 100, 1)
 
         mainModel.addSystemVariable(weidekapazitaet)
@@ -72,16 +78,7 @@ class TestSD(unittest.TestCase):
         mainModel.defineCausalEdge(wachstumsrateBeute, beutezuwachs)
         mainModel.defineCausalEdge(weidekapazitaet, beutezuwachs)
 
-        #Define Input and Output-Flows
-
-        beute.addInputFlow(beutezuwachs)
-        beute.addOutputFlow(beuteverlust)
-        raeuber.addInputFlow(raeuberzuwachs)
-        raeuber.addOutputFlow(energieverlust)
-
-        #print(treffen.getCauses()[0])
-
-
+        
         #Define Equations
         inputEquationBeute = Equation("Beutewachstum", wachstumsrateBeute,beute)
         inputEquationBeute.defineFunction("WachstumsrateBeute*Beute*(1-(Beute/Weidekapazitaet))")
