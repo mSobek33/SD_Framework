@@ -18,11 +18,12 @@ else:
     from src.integration.Equation import Equation
     from src.visualization.ResultVisualization import ResultVisualization
 
-#Define Level, Auxiliary, Flow and Constant
 
 class TestSD(unittest.TestCase):
     
     def test(self):
+        
+        #Define Level, Auxiliary, Flow and Constant
         weidekapazitaet = Constant.Constant('Weidekapazitaet', 'Beute', 300)
         wachstumsrateBeute = Constant.Constant('WachstumsrateBeute', '1/Woche', 0.05)
         beutezuwachs = Flow.Flow('Beutezuwachs', 'Beute/Woche')
