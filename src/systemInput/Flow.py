@@ -1,4 +1,11 @@
-from systemInput.SystemVariable import SystemVariable
+
+if __package__ is None:
+    import sys
+    from os import path
+    sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
+    from systemInput.SystemVariable import SystemVariable
+else:
+    from systemInput.SystemVariable import SystemVariable
 
 class Flow(SystemVariable):
     """
@@ -24,7 +31,12 @@ class Flow(SystemVariable):
         :param equatition: define function
         :return: 
         """
-        print(self.getCauses)
+        for i in list(equation.listVariable.values()):
+            if(i in self.getCauses()):
+                continue
+            else:
+                raise Exception("THE VARIABLES DEFINED IN EQUATION " + equation.name + " ARE NOT CONNECTED THROUGH A CAUSALEDGE!")
+         
         self.equation = equation
 
     def calculateNewValue(self):

@@ -1,4 +1,3 @@
-import pydoc
 import re
 
 class Equation:

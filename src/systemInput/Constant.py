@@ -1,6 +1,11 @@
-import pydoc
 
-from systemInput.SystemVariable import SystemVariable
+if __package__ is None:
+    import sys
+    from os import path
+    sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
+    from systemInput.SystemVariable import SystemVariable
+else:
+    from systemInput.SystemVariable import SystemVariable
 
 class Constant(SystemVariable):
     """

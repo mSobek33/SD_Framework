@@ -1,5 +1,4 @@
 
-import pydoc
 class SystemVariable:
     """
     Superclass to define SystemVariable in a system dynamic simulation model.
@@ -33,6 +32,6 @@ class SystemVariable:
         """
         self.causesList = list()
         for i in self.causalEdgeList:
-            if(i.endVariable.name != self.name):
-                self.causesList.append(i.endVariable)
+            if(i.startVariable.name != self.name):
+                self.causesList.append(i.startVariable)
         return self.causesList

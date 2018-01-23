@@ -1,6 +1,13 @@
-import pydoc
-from systemInput import Flow
-from systemInput.SystemVariable import SystemVariable
+
+if __package__ is None:
+    import sys
+    from os import path
+    sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
+    from systemInput import Flow
+    from systemInput.SystemVariable import SystemVariable
+else:
+    from systemInput import Flow
+    from systemInput.SystemVariable import SystemVariable
 
 class Level(SystemVariable):
     """
@@ -52,8 +59,7 @@ class Level(SystemVariable):
         set equation
         :param equatition: define function
         :return: 
-        """
-        print(self.getCauses)
+        """       
         if hasattr(self, 'inputFlow') and hasattr(self, 'outputFlow'):
             if self.inputFlow.name in equation.listVariable and self.outputFlow.name in equation.listVariable:
                 self.equation = equation

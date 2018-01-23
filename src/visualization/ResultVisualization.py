@@ -10,9 +10,17 @@ except ImportError:
 finally:
     globals()['matplotlib'] = importlib.import_module('matplotlib')
 
-import matplotlib.pyplot as plt
-from matplotlib.widgets import RadioButtons
-from systemInput import Constant
+if __package__ is None:
+    import sys
+    from os import path
+    sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
+    import matplotlib.pyplot as plt
+    from matplotlib.widgets import RadioButtons
+    from systemInput import Constant
+else:
+    import matplotlib.pyplot as plt
+    from matplotlib.widgets import RadioButtons
+    from systemInput import Constant
 
 class ResultVisualization:
     """

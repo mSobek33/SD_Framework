@@ -1,4 +1,3 @@
-import pydoc
 
 if __package__ is None:
     import sys

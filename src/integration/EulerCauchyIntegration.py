@@ -1,4 +1,3 @@
-import pydoc
 
 class EulerCauchyIntegration:
     """
