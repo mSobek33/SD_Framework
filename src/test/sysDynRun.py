@@ -127,7 +127,7 @@ class TestSD(unittest.TestCase):
         gui.drawGraphic(mainModel)
 
 
-        # Tests!
+        # Unittests
         counter = 0
         for value in raeuber.valueHistoryList[0:5]:
             self.assertAlmostEqual(value, checkListRaeuber[counter], 3)
@@ -142,5 +142,4 @@ class TestSD(unittest.TestCase):
 #start unittest
 if __name__ == '__main__':
     unittest.main()
-    self.test()
 
