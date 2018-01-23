@@ -13,7 +13,7 @@ This Framework uses the Python 2D library [matplotlib](https://matplotlib.org)
 
 Below a step-by-step tutorial on how to create a System-Dynamik Model using this framework.
 
-#1. Create all system variables
+#### 1. Create all system variables
 ``` 
 # create a constant with a inital value
 constant = Constant.Constant('constantName', 'constantUnit', 300)
@@ -25,7 +25,7 @@ level = Level.Level('levelName', 'levelUnit', 500)
 auxiliary = Auxiliary.Auxiliary('auxiliaryName', 'auxiliaryUnit')
 ```
 
-#2. Create all flows
+#### 2. Create all flows
 ```
 # create a flow 
 flow = Flow.Flow('flowName', 'flowUnit')
@@ -33,13 +33,13 @@ flow2 = Flow.Flow('flow2Name', 'flow2Unit')
 ```
 
 
-#3. Define input- and outputflows for level
+#### 3. Define input- and outputflows for level
 ```
 level.addInputFlow(flow)
 level.addOutputFlow(flow2)
 ```
 
-#4. Create the model
+#### 4. Create the model
 ```
 # create a model, set starttime, endtime and timesteps
 model = Model.Model("modelName", 0, 100, 1)
@@ -51,13 +51,13 @@ model.addSystemVariable(flow)
 # ...
 ```
 
-#5. Define the causal edges in the model
+#### 5. Define the causal edges in the model
 ```
 model.defineCausalEdge(auxiliary, level)
 ```
 
 
-#6. Define and add equations to variables
+#### 6. Define and add equations to variables
 ```
 # create equation, pass all systemVariables as parameters 
 flowEquation = Equation("equationName", auxiliary, constant)
@@ -76,12 +76,12 @@ levelEquation.defineFunction("flowName - flowName2")
 level.addEquation(levelEquation)
 ```
 
-#7. Starting the model calculation
+#### 7. Starting the model calculation
 ```
 model.run()
 ```
 
- #8. Display and print results
+ #### 8. Display and print results
  ```
  # create a ResultVisualizatior
  result = ResultVisualization()
