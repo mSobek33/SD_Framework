@@ -12,8 +12,3 @@ class EulerCauchyIntegration:
         :return: nothing
         """
         level.newValue = level.currentValue + level.calculateChange() * timestep
-            
-
-
-
-

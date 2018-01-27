@@ -6,8 +6,8 @@ if __package__ is None:
     from systemInput import CausalEdge, Level, Flow, Auxiliary
     from integration import EulerCauchyIntegration
 else:
-    from systemInput import CausalEdge, Level, Flow, Auxiliary
-    from integration import EulerCauchyIntegration
+    from SD_Framework.src.systemInput import CausalEdge, Level, Flow, Auxiliary
+    from SD_Framework.src.integration import EulerCauchyIntegration
 
 
 class Model:
@@ -71,18 +71,25 @@ class Model:
 
             for currentVariable in self.listSystemVariable:
                 if isinstance(currentVariable, Level.Level):
+                    self.__updateList(Flow.Flow)
                     eci = EulerCauchyIntegration.EulerCauchyIntegration()
                     eci.integrate(self.timestep, currentVariable)
                     currentVariable.valueHistoryList.append(currentVariable.newValue)
-                elif isinstance(currentVariable, Flow.Flow) or isinstance(currentVariable, Auxiliary.Auxiliary):
+                elif isinstance(currentVariable, Flow.Flow):
+                    self.__updateList(Auxiliary.Auxiliary)
                     currentVariable.calculateNewValue()
                     currentVariable.valueHistoryList.append(currentVariable.newValue)
-                    currentVariable.currentValue = currentVariable.newValue
+                elif isinstance(currentVariable, Auxiliary.Auxiliary):
+                    currentVariable.calculateNewValue()
+                    currentVariable.valueHistoryList.append(currentVariable.newValue)
 
             #set value currentValue = newValue
-            for variable in self.listSystemVariable:
-                if isinstance(variable, Level.Level):
-                    variable.currentValue = variable.newValue
+            self.__updateList(Level.Level)
     
             time +=1
+
+    def __updateList(self, type):
+        for variable in self.listSystemVariable:
+            if isinstance(variable, type):
+                variable.currentValue = variable.newValue
 

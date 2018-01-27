@@ -6,8 +6,8 @@ if __package__ is None:
     from systemInput import Flow
     from systemInput.SystemVariable import SystemVariable
 else:
-    from systemInput import Flow
-    from systemInput.SystemVariable import SystemVariable
+    from SD_Framework.src.systemInput import Flow
+    from SD_Framework.src.systemInput.SystemVariable import SystemVariable
 
 class Level(SystemVariable):
     """

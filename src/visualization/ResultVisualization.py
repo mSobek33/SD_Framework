@@ -20,7 +20,7 @@ if __package__ is None:
 else:
     import matplotlib.pyplot as plt
     from matplotlib.widgets import RadioButtons
-    from systemInput import Constant
+    from SD_Framework.src.systemInput import Constant
 
 class ResultVisualization:
     """

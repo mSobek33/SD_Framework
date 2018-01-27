@@ -5,7 +5,7 @@ if __package__ is None:
     sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
     from systemInput.SystemVariable import SystemVariable
 else:
-    from systemInput.SystemVariable import SystemVariable
+    from SD_Framework.src.systemInput.SystemVariable import SystemVariable
 
 class Constant(SystemVariable):
     """

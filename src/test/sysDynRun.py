@@ -14,9 +14,9 @@ if __package__ is None:
 else:
     import sys
     from os import path
-    from src.systemInput import Model, Level, Constant, Auxiliary, Flow
-    from src.integration.Equation import Equation
-    from src.visualization.ResultVisualization import ResultVisualization
+    from SD_Framework.src.systemInput import Model, Level, Constant, Auxiliary, Flow
+    from SD_Framework.src.integration.Equation import Equation
+    from SD_Framework.src.visualization.ResultVisualization import ResultVisualization
 
 
 class TestSD(unittest.TestCase):
@@ -81,9 +81,9 @@ class TestSD(unittest.TestCase):
 
         
         #Define Equations
-        inputEquationBeute = Equation("Beutewachstum", wachstumsrateBeute,beute)
-        inputEquationBeute.defineFunction("WachstumsrateBeute*Beute*(1-(Beute/Weidekapazitaet))")
+        inputEquationBeute = Equation("Beutewachstum", wachstumsrateBeute, beute)
         inputEquationBeute.addCalculationVariable(weidekapazitaet)
+        inputEquationBeute.defineFunction("WachstumsrateBeute*Beute*(1-(Beute/Weidekapazitaet))")
 
         outputEquationBeute = Equation("Beuteverlust", treffen, verlustrateBeute)
         outputEquationBeute.defineFunction("Treffen*VerlustrateBeute")
