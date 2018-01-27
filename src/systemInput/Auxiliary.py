@@ -25,6 +25,7 @@ class Auxiliary(SystemVariable):
         self.valueHistoryList = list()
         self.valueHistoryList.append(None)
         self.calcPriority = 1
+        self.checked = False
 
 
     def addEquation(self, equation):

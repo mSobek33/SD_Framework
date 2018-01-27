@@ -39,7 +39,6 @@ class TestSD(unittest.TestCase):
 
         treffen = Auxiliary.Auxiliary('Treffen', 'Rauber*Beute')
 
-        
         #Define Input and Output-Flows
 
         beute.addInputFlow(beutezuwachs)
@@ -73,6 +72,7 @@ class TestSD(unittest.TestCase):
         mainModel.defineCausalEdge(raeuber,treffen)
         mainModel.defineCausalEdge(treffen, raeuberzuwachs)
         mainModel.defineCausalEdge(treffen, beuteverlust)
+
         mainModel.defineCausalEdge(verlustrateBeute, beuteverlust)
         mainModel.defineCausalEdge(beute, treffen)
         mainModel.defineCausalEdge(beute, beutezuwachs)
@@ -112,6 +112,7 @@ class TestSD(unittest.TestCase):
         treffenEquation.defineFunction("Beute*Raeuber")
         treffen.addEquation(treffenEquation)
 
+
         #Run Model
         mainModel.run()
         
@@ -134,7 +135,7 @@ class TestSD(unittest.TestCase):
         for value in beute.valueHistoryList[0:5]:
             self.assertAlmostEqual(value, checkListBeute[counter], 3)
             counter=counter+1
-    
+
 
 #start unittest
 if __name__ == '__main__':

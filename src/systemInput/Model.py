@@ -1,5 +1,6 @@
 
 if __package__ is None:
+
     import sys
     from os import path
     sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
@@ -64,8 +65,8 @@ class Model:
         
         time = 0
         
-        #Important, flow and auxiliary has to be caluculated bevor level
-        self.listSystemVariable.sort(key=lambda x: x.calcPriority, reverse=False)
+
+        self.sort()
         
         while time<self.timeboundary:
 
@@ -76,19 +77,47 @@ class Model:
                     eci.integrate(self.timestep, currentVariable)
                     currentVariable.valueHistoryList.append(currentVariable.newValue)
                 elif isinstance(currentVariable, Flow.Flow):
-                    self.__updateList(Auxiliary.Auxiliary)
                     currentVariable.calculateNewValue()
                     currentVariable.valueHistoryList.append(currentVariable.newValue)
                 elif isinstance(currentVariable, Auxiliary.Auxiliary):
                     currentVariable.calculateNewValue()
                     currentVariable.valueHistoryList.append(currentVariable.newValue)
+                    currentVariable.currentValue = currentVariable.newValue
 
-            #set value currentValue = newValue
             self.__updateList(Level.Level)
     
             time +=1
 
+
+
+    def sort(self):
+        """
+        Sort Variable list 
+        Important: flow and auxiliary has to be caluculated bevor level
+        :return: 
+        """
+        self.listSystemVariable.sort(key=lambda x: x.calcPriority, reverse=False)
+        #important Auxiliary sorting correctly
+        for variable in self.listSystemVariable:
+            if (isinstance(variable, Flow.Flow)) or variable.checked == True:
+                return
+            for i in variable.getCauses():
+                if(isinstance(i, Auxiliary.Auxiliary)) and i.checked == False:
+                    newIndex = self.listSystemVariable.index(i)
+                    oldIndex = self.listSystemVariable.index(variable)
+                    self.listSystemVariable [newIndex] = variable
+                    self.listSystemVariable [oldIndex] = i
+            variable.checked = True
+
+
+
+
     def __updateList(self, type):
+        """
+        update current = newValue
+        :param type: 
+        :return: 
+        """
         for variable in self.listSystemVariable:
             if isinstance(variable, type):
                 variable.currentValue = variable.newValue
