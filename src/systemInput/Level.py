@@ -75,7 +75,8 @@ class Level(SystemVariable):
         :return: new Value
         """
         if hasattr(self, 'equation'):
-            return self.equation.calculateNewValue()
+            # self.newValue = self.equation.calculateNewValueByString()
+            return self.equation.calculateNewValueByLamda()
         else:
             raise Exception("EQUATION MUST BE DEFINED: "+self.name)
         

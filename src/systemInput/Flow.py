@@ -45,6 +45,7 @@ class Flow(SystemVariable):
         :return: 
         """
         if hasattr(self, 'equation'):
-            self.newValue = self.equation.calculateNewValue()
+            # self.newValue = self.equation.calculateNewValueByString()
+            self.newValue = self.equation.calculateNewValueByLamda()
         else:
             raise Exception("EQUATION MUST BE DEFINED: " + self.name)

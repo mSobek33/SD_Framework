@@ -27,8 +27,27 @@ class Equation:
             self.listVariable[i.name] = i
 
 
-    def defineFunction(self, functionalEquation):
+    def defineFunctionByLambda(self, lambdaExpression):
         """
+        save defined lambdaExpression
+        :param lambdaExpression: 
+        :return: nothing
+        """
+        self.function = lambdaExpression
+
+
+
+    def calculateNewValueByLamda(self):
+        """
+        Calculate the new value, current timestep
+        :return: 
+        """
+        return self.function()
+
+
+    def defineFunctionByString(self, functionalEquation):
+        """
+        OLD-VERSION WITH STRING-EQUATION
         save defined function
         :return: current result
         """
@@ -38,8 +57,9 @@ class Equation:
             raise SyntaxError("USE () INSTEAD OF []")
 
 
-    def calculateNewValue(self):
+    def calculateNewValueByString(self):
         """
+        OLD-VERSION WITH STRING-EQUATION
         Calculate the new value, current timestep
         :return: 
         """

@@ -83,33 +83,41 @@ class TestSD(unittest.TestCase):
         #Define Equations
         inputEquationBeute = Equation("Beutewachstum", wachstumsrateBeute, beute)
         inputEquationBeute.addCalculationVariable(weidekapazitaet)
-        inputEquationBeute.defineFunction("WachstumsrateBeute*Beute*(1-(Beute/Weidekapazitaet))")
+        inputEquationBeute.defineFunctionByLambda(lambda : wachstumsrateBeute.currentValue * beute.currentValue *
+                                                           (1-(beute.currentValue/weidekapazitaet.currentValue)))
+        ##inputEquationBeute.defineFunctionByString("WachstumsrateBeute*Beute*(1-(Beute/Weidekapazitaet))")
 
         outputEquationBeute = Equation("Beuteverlust", treffen, verlustrateBeute)
-        outputEquationBeute.defineFunction("Treffen*VerlustrateBeute")
+        #outputEquationBeute.defineFunctionByString("Treffen*VerlustrateBeute")
+        outputEquationBeute.defineFunctionByLambda(lambda : treffen.currentValue * verlustrateBeute.currentValue)
 
         beutezuwachs.addEquation(inputEquationBeute)
         beuteverlust.addEquation(outputEquationBeute)
 
         beuteEquation = Equation("AnzahlBeute", beutezuwachs, beuteverlust)
-        beuteEquation.defineFunction("Beutezuwachs - Beuteverlust")
+        #beuteEquation.defineFunctionByString("Beutezuwachs - Beuteverlust")
+        beuteEquation.defineFunctionByLambda(lambda : beutezuwachs.currentValue - beuteverlust.currentValue)
         beute.addEquation(beuteEquation)
 
         inputEquationRaeuber = Equation("Rauberwachstum", wachstumsrateRaeuber, treffen)
-        inputEquationRaeuber.defineFunction("WachstumsrateRaeuber*Treffen")
+        # inputEquationRaeuber.defineFunctionByString("WachstumsrateRaeuber*Treffen")
+        inputEquationRaeuber.defineFunctionByLambda(lambda : wachstumsrateRaeuber.currentValue * treffen.currentValue)
 
         outputEquationRaeuber = Equation("Raeuberverlust", raeuber, energieverlustrateRaeuber)
-        outputEquationRaeuber.defineFunction("Raeuber*EnergieverlustrateRaeuber")
+        #outputEquationRaeuber.defineFunctionByString("Raeuber*EnergieverlustrateRaeuber")
+        outputEquationRaeuber.defineFunctionByLambda(lambda : raeuber.currentValue * energieverlustrateRaeuber.currentValue)
 
         raeuberzuwachs.addEquation(inputEquationRaeuber)
         energieverlust.addEquation(outputEquationRaeuber)
 
         raeuberEquation = Equation("AnzahlRaeuber", raeuberzuwachs, energieverlust)
-        raeuberEquation.defineFunction("Raeuberzuwachs - Energieverlust")
+        #raeuberEquation.defineFunctionByString("Raeuberzuwachs - Energieverlust")
+        raeuberEquation.defineFunctionByLambda(lambda : raeuberzuwachs.currentValue - energieverlust.currentValue)
         raeuber.addEquation(raeuberEquation)
 
         treffenEquation = Equation("Treffen", beute, raeuber)
-        treffenEquation.defineFunction("Beute*Raeuber")
+        #treffenEquation.defineFunctionByString("Beute*Raeuber")
+        treffenEquation.defineFunctionByLambda(lambda : beute.currentValue * raeuber.currentValue)
         treffen.addEquation(treffenEquation)
 
 
