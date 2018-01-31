@@ -71,7 +71,7 @@ flow.addEquation(flowEquation)
 # create equation, pass all systemVariables as parameters 
 levelEquation = Equation("levelEquationName", flow, flow2)
 # define calculation rule
-levelEquation.defineFunction("flowName - flowName2")
+levelEquation.defineFunctionByLambda( lambda: flow.currentValue - flow2.currentValue)
 # add equation to systemVariable
 level.addEquation(levelEquation)
 ```
