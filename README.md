@@ -62,7 +62,7 @@ model.defineCausalEdge(auxiliary, level)
 # create equation, pass all systemVariables as parameters 
 flowEquation = Equation("equationName", auxiliary, constant)
 # define calculation rule
-flowEquation.defineFunction("auxiliaryName * constantName")
+flowEquation.defineFunctionByLambda( lambda : auxiliary.currentValue * constant.currentValue)
 # add equation to systemVariable
 flow.addEquation(flowEquation)
 
