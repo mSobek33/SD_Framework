@@ -33,7 +33,10 @@ class Equation:
         :param lambdaExpression: 
         :return: nothing
         """
-        self.function = lambdaExpression
+        if(self.isalambda(lambdaExpression)):
+            self.function = lambdaExpression
+        else:
+            raise Exception("NO LAMBDA-EXPRESSION")
 
 
 
@@ -89,3 +92,13 @@ class Equation:
         except ValueError:
             return False
         return True
+
+
+    def isalambda(self, expression):
+        """
+        Check if function is lambda
+        Source: https://stackoverflow.com/questions/3655842/how-can-i-test-whether-a-variable-holds-a-lambda
+        :return: 
+        """
+        LAMBDA = lambda: 0
+        return isinstance(expression, type(LAMBDA)) and expression.__name__ == LAMBDA.__name__
