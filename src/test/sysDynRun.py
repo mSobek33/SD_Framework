@@ -2,7 +2,6 @@
 Testclass 
 Raueber-Beute-System
 """
-import inspect
 import unittest
 
 if __package__ is None:
