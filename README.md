@@ -11,7 +11,7 @@ This Framework uses the Python 2D library [matplotlib](https://matplotlib.org)
 
 ### Usage
 
-Below a step-by-step tutorial on how to create a System-Dynamik Model using this framework.
+Below a step-by-step tutorial on how to create a System-Dynamic Model using this framework.
 
 #### 1. Create all system variables
 ``` 
